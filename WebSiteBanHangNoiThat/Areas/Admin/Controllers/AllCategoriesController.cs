@@ -66,18 +66,17 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
 
         // POST: Admin/AllCategories/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "Id,Name,Code,Image,Description,Alias")] Category category)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
-
+                db.Categories.Add(category);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+
+            return View(category);
         }
 
         // GET: Admin/AllCategories/Edit/5

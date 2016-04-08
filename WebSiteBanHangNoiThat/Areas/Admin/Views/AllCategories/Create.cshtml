@@ -1,0 +1,96 @@
+﻿@model WebSiteBanHangNoiThat.DataBaseModels.Category
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_Share.cshtml";
+}
+<table class="table" style="margin-left:20px">
+    <thead>
+        <tr>
+            <th>  <h2 class="header__main"><span class="breadcrumb"><i class="fa fa-credit-card"></i> </span><span class="title">Danh mục sản phẩm/ Thêm mới danh mục</span></h2></th>
+            <th>
+
+                <a class="btn btn-default" href="javascript:void(0)" bind-event-click="showExportOrders()">Xuất danh sách danh mục</a>
+                <a class="btn btn-primary" href="/Admin/AllCategories/create">Thêm mới</a>
+
+            </th>
+
+        </tr>
+    </thead>
+
+</table>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+  
+        @*Ke ke*@
+        <div class="container-fluid-md">
+            <div class="row">
+                <div class="col-md-offset-6 col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">Thêm danh mục sản phẩm</h4>
+
+
+                            <div class="panel-options">
+                                <a href="#" data-rel="collapse"><i class="fa fa-fw fa-minus"></i></a>
+                                <a href="#" data-rel="reload"><i class="fa fa-fw fa-refresh"></i></a>
+                                <a href="#" data-rel="close"><i class="fa fa-fw fa-times"></i></a>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <form role="form">
+                                <div class="form-group">
+
+                                    <span class="help">Tên Danh Mục</span>
+
+                                    <div class="controls">
+                                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+
+                                    <span class="help">Mã Danh Mục</span>
+
+                                    <div class="controls">
+                                        @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <span class="help">Ảnh</span>
+
+                                    <div class="controls">
+                                        @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <span class="help">Mô Tả</span>
+
+                                    <div class="controls">
+                                        @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-offset-10 col-md-10">
+                                        <input type="submit" value="Lưu" class="btn btn-primary" />
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+              
+            </div>
+
+        </div>
+
+  
+}
+
