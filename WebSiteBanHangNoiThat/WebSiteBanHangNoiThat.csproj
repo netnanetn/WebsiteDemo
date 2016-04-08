@@ -164,6 +164,7 @@
     <Compile Include="Areas\Admin\Controllers\AllCategoriesController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProfileController.cs" />
     <Compile Include="Areas\Admin\Models\AllCategoriesModels.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -467,6 +468,8 @@
     <Content Include="Areas\Admin\Views\AllCategories\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Login\Login.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Layout_Login.cshtml" />
+    <Content Include="Areas\Admin\Views\Profile\Profile.cshtml" />
+    <Content Include="Areas\Admin\Views\AllCategories\Edit.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

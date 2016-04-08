@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using WebSiteBanHangNoiThat.DataBaseModels;
 using WebSiteBanHangNoiThat.Areas.Admin.Models;
+using System.Net;
+using System.Data.Entity;
 
 namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
 {
@@ -30,6 +32,7 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
                 var query = from pro in db.Categories
                             select new AllCategoriesModels()
                             {
+                                Id=pro.Id,
                               Name=  pro.Name,
                               Description=   pro.Description,
                               Image=pro.Image
@@ -47,6 +50,8 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
             //return prList;
          
         }
+        // edit danh mục sản phẩm
+  
         // GET: Admin/AllCategories/Details/5
         public ActionResult Details(int id)
         {
@@ -78,23 +83,30 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
         // GET: Admin/AllCategories/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Category category = db.Categories.Find(id);
+                               
+            if (category == null)
+            {
+                return HttpNotFound();
+            }
+            return View(category);
         }
 
         // POST: Admin/AllCategories/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit([Bind(Include = "Id,Name,Code,Image,Description,Alias,CreateOn,ModifiedOn,Status")] Category category)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
-
+                db.Entry(category).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+            return View(category);
         }
 
         // GET: Admin/AllCategories/Delete/5
