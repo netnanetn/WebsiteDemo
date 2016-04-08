@@ -13,7 +13,7 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
         {
             return View();
         }
-        // GET: Admin/Profile
+        // GET: 
         public ActionResult Profile()
         {
             return View();
