@@ -108,7 +108,21 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
             }
             return View(category);
         }
+        public ActionResult SaveEdit(int id)
+        {
+            //Kiểm tra hợp lệ dữ liệu phía server
+            var category = db.Categories.Find(id);
 
+            if (TryUpdateModel(category, "", new string[] { "Name","Code","Image","Description","Alias","CreateOn","ModifiedOn","Status" }))
+            {
+                //Cập nhật thông tin người dùng
+                db.Entry(category).State = System.Data.Entity.EntityState.Modified;
+                //Thêm quyền người dùng
+            
+                db.SaveChanges();
+            }
+            return RedirectToAction("Index");
+        }
         // GET: Admin/AllCategories/Delete/5
         public ActionResult Delete(int id)
         {
