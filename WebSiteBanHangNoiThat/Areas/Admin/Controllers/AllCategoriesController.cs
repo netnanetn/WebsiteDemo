@@ -16,6 +16,10 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
     {
 
         web_interiorEntities db = new web_interiorEntities();
+        public ActionResult Test()
+        {
+            return View();
+        }
         // GET: Admin/AllCategories
          [Authorize(Roles = "SuperAdmin")]
         public ActionResult Index()
@@ -34,7 +38,7 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
                             {
                                 Id=pro.Id,
                               Name=  pro.Name,
-                              Description=   pro.Description,
+                              Description= pro.Description,
                               Image=pro.Image
                             };
 
@@ -67,6 +71,7 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
         // POST: Admin/AllCategories/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
         public ActionResult Create([Bind(Include = "Id,Name,Code,Image,Description,Alias")] Category category)
         {
             if (ModelState.IsValid)

@@ -21,6 +21,9 @@
     <link rel="stylesheet" href="~/Assets/dist/assets/plugins/jquery-jvectormap/jquery-jvectormap-1.2.2.css" />
     <link rel="stylesheet" href="~/Assets/dist/css/plugins/rickshaw.min.css">
     <link rel="stylesheet" href="~/Assets/dist/css/plugins/morris.min.css">
+    @* editor *@
+    <link rel="stylesheet" href="~/Assets/dist/assets/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="~/Assets/dist/assets/plugins/bootstrap-wysihtml5/css/bootstrap-wysihtml5.css">
     <!--[if lt IE 9]>
     <script src="dist/assets/libs/html5shiv/html5shiv.min.js"></script>
     <script src="dist/assets/libs/respond/respond.min.js"></script>
@@ -640,5 +643,17 @@
     <script src="~/Assets/dist/assets/plugins/morris/morris.min.js"></script>
     <script src="~/Assets/demo/js/dashboard.js"></script>
     <script src="~/Assets/dist/js/dktjs.js"></script>
+    <!--editor-->
+    <script src="~/Assets/dist/assets/plugins/bootstrap-wysihtml5/js/wysihtml5-0.3.0.min.js"></script>
+    <script src="~/Assets/dist/assets/plugins/bootstrap-wysihtml5/js/bootstrap-wysihtml5.js"></script>
+    <script>
+        jQuery(function ($) {
+            $('#wysiwyg').wysihtml5({
+                stylesheets: ['~/Assets/dist/assets/plugins/bootstrap-wysihtml5/css/wysiwyg-color.css']
+            });
+            $('.wysihtml5-toolbar .btn-default').removeClass('btn-default').addClass('btn-white');
+        });
+    </script>
+
 </body>
 </html>

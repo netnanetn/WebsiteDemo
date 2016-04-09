@@ -1,0 +1,86 @@
+﻿
+@{
+    Layout = null;
+}
+<!doctype html>
+<!--[if IE 8]>         <html class="ie8"> <![endif]-->
+<!--[if IE 9]>         <html class="ie9"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html>
+ <!--<![endif]-->
+<head>
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Veneto Admin &middot; Forms - Editors </title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!--<link rel="shortcut icon" href="/favicon.ico">-->
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <link rel="stylesheet" href="~/Assets/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Assets/dist/css/veneto-admin.min.css">
+    <link rel="stylesheet" href="~/Assets/demo/css/demo.css">
+    <link rel="stylesheet" href="~/Assets/dist/assets/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="~/Assets/dist/assets/plugins/bootstrap-wysihtml5/css/bootstrap-wysihtml5.css">
+    <!--[if lt IE 9]>
+    <script src="dist/assets/libs/html5shiv/html5shiv.min.js"></script>
+    <script src="dist/assets/libs/respond/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body class="">
+   
+    <div class="page-wrapper">
+      
+        <div class="page-content">
+         
+            <div class="page-heading page-heading-md">
+                <h2>Editors</h2>
+            </div>
+
+            <div class="container-fluid-md">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Bootstrap WYSIHTML5</h3>
+                        <div class="panel-options">
+                            <a data-rel="collapse" href="#"><i class="fa fa-fw fa-minus"></i></a>
+                            <a data-rel="reload" href="#"><i class="fa fa-fw fa-refresh"></i></a>
+                            <a data-rel="close" href="#"><i class="fa fa-fw fa-times"></i></a>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <textarea id="wysiwyg" class="form-control" placeholder="Enter message ..." rows="25"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+
+            <script src="~/Content/ckeditor/ckeditor.js"></script>
+            <textarea name="NoiDung" id="NoiDung"></textarea>
+            <script>
+                CKEDITOR.replace('NoiDung');
+            </script>
+        </div>
+    </div>
+    <script src="~/Assets/dist/assets/libs/jquery/jquery.min.js"></script>
+    <script src="~/Assets/dist/assets/bs3/js/bootstrap.min.js"></script>
+    <script src="~/Assets/dist/assets/plugins/jquery-navgoco/jquery.navgoco.js"></script>
+    <script src="~/Assets/dist/js/main.js"></script>
+    <!--[if lt IE 9]>
+    <script src="dist/assets/plugins/flot/excanvas.min.js"></script>
+    <![endif]-->
+    <script src="~/Assets/dist/assets/plugins/jquery-sparkline/jquery.sparkline.js"></script>
+    <script src="~/Assets/demo/js/demo.js"></script>
+    <script src="~/Assets/dist/assets/plugins/bootstrap-wysihtml5/js/wysihtml5-0.3.0.min.js"></script>
+    <script src="~/Assets/dist/assets/plugins/bootstrap-wysihtml5/js/bootstrap-wysihtml5.js"></script>
+    <script>
+            jQuery(function ($) {
+                $('#wysiwyg').wysihtml5({
+                    stylesheets: ['~/Assets/dist/assets/plugins/bootstrap-wysihtml5/css/wysiwyg-color.css']
+                });
+                $('.wysihtml5-toolbar .btn-default').removeClass('btn-default').addClass('btn-white');
+            });
+    </script>
+
+</body>
+</html>

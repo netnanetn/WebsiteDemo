@@ -72,25 +72,34 @@
                                     <span class="help">Mô Tả</span>
 
                                     <div class="controls">
-                                        @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                                        @*@Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })*@
+                                        <div>
+                                            @Html.TextAreaFor(model => model.Description, new { @id = "NoiDung" })
+                                         
+                                                <script src="~/Content/ckeditor/ckeditor.js"></script>
+                                                @*<textarea name="NoiDung" id="NoiDung"></textarea>*@
+                                                <script>
+                                                    CKEDITOR.replace('NoiDung');
+                                                </script>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="form-group">
-                                    <div class="col-md-offset-10 col-md-10">
-                                        <input type="submit" value="Lưu" class="btn btn-primary" />
+                                    <div class="form-group">
+                                        <div class="col-md-offset-10 col-md-10">
+                                            <input type="submit" value="Lưu" class="btn btn-primary" />
+                                        </div>
                                     </div>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
+
                 </div>
-              
+
             </div>
 
-        </div>
 
-  
-}
+    }
 
