@@ -160,16 +160,27 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
             }
             return View(category);
         }
+        [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
         public ActionResult SaveEdit(int id)
         {
+            if (System.Web.HttpContext.Current.Request.Files.AllKeys.Any())
+            {
+                var pic = System.Web.HttpContext.Current.Request.Files["HelpSectionImages"];
+            }
+      
             //Kiểm tra hợp lệ dữ liệu phía server
             var category = db.Categories.Find(id);
-
+       
             if (TryUpdateModel(category, "", new string[] { "Name","Code","Image","Description","Alias","CreateOn","ModifiedOn","Status" }))
             {
-                //Cập nhật thông tin người dùng
+                if (fileimg != category.Image)
+                {
+                    category.Image = fileimg;
+                }
+                //Cập nhật thông tin 
                 db.Entry(category).State = System.Data.Entity.EntityState.Modified;
-                //Thêm quyền người dùng
+           
             
                 db.SaveChanges();
             }

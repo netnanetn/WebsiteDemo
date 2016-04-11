@@ -5,13 +5,31 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout_Share.cshtml";
 }
 
+<table class="table" style="margin-left:20px">
+    <thead>
+        <tr>
+            <th>  <h2 class="header__main"><span class="breadcrumb"><i class="fa fa-credit-card"></i> </span><span class="title">Sửa danh mục sản phẩm/ 
+              @Html.DisplayTextFor(model=>model.Name)
+                </span></h2></th>
+            @*<th>
+
+                <a class="btn btn-default" href="javascript:void(0)" bind-event-click="showExportOrders()">Xuất danh sách danh mục</a>
+                <a class="btn btn-primary" href="/Admin/AllCategories/create">Thêm mới</a>
+
+            </th>*@
+
+        </tr>
+    </thead>
+
+</table>
 
 
 @using (Html.BeginForm("SaveEdit", "AllCategories", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Id)
+    @*<div class="form-horizontal">
         <h4>Category</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -88,9 +106,149 @@
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </div>
-    </div>
-}
+    </div>*@
+      <div class="container-fluid-md">
+            <div class="row">
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+                <div class="col-md-4 col-lg-3">
+
+
+                    @*<input type="file" id="uploadEditorImage" />*@
+                   <h3><span><b>Nội dung danh mục</b></span></h3>
+                    <span><i>Chọn ảnh cho danh mục</i></span>
+                    <input type="file" id="UploadImg" /> <br /><br />
+                    Tên mới: <input type="text" id="txtImg" size="50" style="width:140px" /> <br /><br />
+                    @*<img id="imgPreview" height="200" width="200" style="border:none"/>*@
+                    <img id="imgPreview" class="img-circle" src=@Html.DisplayFor(model => model.Image) height="200px" width="200px">
+                    <script>
+                        $("#UploadImg").change(function () {
+                            var data = new FormData();
+                            var files = $("#UploadImg").get(0).files;
+                            if (files.length > 0) {
+                                data.append("MyImages", files[0]);
+                            }
+
+                            $.ajax({
+                                url: "/AllCategories/UploadFile",
+                                type: "POST",
+                                processData: false,
+                                contentType: false,
+                                data: data,
+                                success: function (response) {
+                                    //code after success
+                                    $("#txtImg").val(response);
+                                    $("#imgPreview").attr('src', '/Upload/' + response);
+                                },
+                                error: function (er) {
+                                    alert(er);
+                                }
+
+                            });
+                        });
+                    </script>
+
+
+                </div>
+                <div class="col-md-8 col-lg-9">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">Sửa danh mục sản phẩm</h4>
+
+
+                            <div class="panel-options">
+                                <a href="#" data-rel="collapse"><i class="fa fa-fw fa-minus"></i></a>
+                                <a href="#" data-rel="reload"><i class="fa fa-fw fa-refresh"></i></a>
+                                <a href="#" data-rel="close"><i class="fa fa-fw fa-times"></i></a>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <form role="form">
+                                <div class="form-group">
+
+                                    <span class="help">Tên Danh Mục</span>
+
+                                    <div class="controls">
+                                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+
+                                    <span class="help">Mã Danh Mục</span>
+
+                                    <div class="controls">
+                                        @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                @*<div class="form-group">
+                            <span class="help">Ảnh</span>
+
+                            <div class="controls">
+                                @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+                            </div>
+                        </div>*@
+                                <div class="form-group">
+                                    <span class="help">Mô Tả</span>
+
+                                    <div class="controls">
+                                        @*@Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })*@
+                                        <div>
+                                            @Html.TextAreaFor(model => model.Description, new { @id = "NoiDung" })
+
+                                            <script src="~/Content/ckeditor/ckeditor.js"></script>
+                                            @*<textarea name="NoiDung" id="NoiDung"></textarea>*@
+                                            <script>
+                                                CKEDITOR.replace('NoiDung');
+                                            </script>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-offset-10 col-md-10">
+                                        <input type="submit" value="Lưu" class="btn btn-primary" />
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                </div>
+            <div class="row">
+                <div class="col-md-4 col-lg-3">
+                    <h4>Trạng thái</h4>
+                    <p class="text-muted">Cho phép thiết lập thời gian sản phẩm được hiển thị.</p>
+                </div>
+                <div class="col-md-8 col-lg-9">
+                    <div class="panel panel-default panel-light">
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <div class="controls">
+                                    <div class="radio">
+                                        <label>
+                                            <input onclick="setPublishDateNow()" name="active" type="radio" value="true" checked="checked">
+                                            Hiển thị
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input onclick="hidePublishDate()" name="active" type="radio" value="false">
+                                            Ẩn
+                                        </label>
+                                    </div>
+                                  
+                                </div>
+                              
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+}

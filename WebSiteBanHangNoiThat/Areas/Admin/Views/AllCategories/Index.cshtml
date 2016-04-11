@@ -55,7 +55,8 @@
             <td>
                 
 
-            <a href="#">@Html.DisplayFor(modelItem => item.Name)</a>   
+            @*<a href="#">@Html.DisplayFor(modelItem => item.Name)</a>*@  
+                @Html.ActionLink(item.Name, "Edit", new { id = item.Id }) 
                
             </td>
             <td>

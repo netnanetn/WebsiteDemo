@@ -36,7 +36,7 @@
                    <h3><span><b>Nội dung danh mục</b></span></h3>
                     <span><i>Chọn ảnh cho danh mục</i></span>
                     <input type="file" id="UploadImg" /> <br /><br />
-                    New File Name: <input type="text" id="txtImg" size="50" style="width:80px" /> <br /><br />
+                    Tên mới: <input type="text" id="txtImg" size="50" style="width:140px" /> <br /><br />
                     <img id="imgPreview" height="200" width="200" style="border:none"/>
 
                     <script>
@@ -139,8 +139,37 @@
 
 
                 </div>
-
+            <div class="row">
+                <div class="col-md-4 col-lg-3">
+                    <h4>Trạng thái</h4>
+                    <p class="text-muted">Cho phép thiết lập thời gian sản phẩm được hiển thị.</p>
+                </div>
+                <div class="col-md-8 col-lg-9">
+                    <div class="panel panel-default panel-light">
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <div class="controls">
+                                    <div class="radio">
+                                        <label>
+                                            <input onclick="setPublishDateNow()" name="active" type="radio" value="true" checked="checked">
+                                            Hiển thị
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input onclick="hidePublishDate()" name="active" type="radio" value="false">
+                                            Ẩn
+                                        </label>
+                                    </div>
+                                  
+                                </div>
+                              
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </div>
 
 
     }
