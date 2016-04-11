@@ -7,13 +7,16 @@ using WebSiteBanHangNoiThat.DataBaseModels;
 using WebSiteBanHangNoiThat.Areas.Admin.Models;
 using System.Net;
 using System.Data.Entity;
+using System.IO;
+using System.Web.Helpers;
 
 namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
 {
 
-   
+  
     public class AllCategoriesController : Controller
     {
+        public static string fileimg;
 
         web_interiorEntities db = new web_interiorEntities();
         public ActionResult Test()
@@ -44,14 +47,7 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
 
                 return query.ToList();
             }
-            //var prquery = from p in db.Categories
-            //              select new { 
-                          
-            //              p.Name,
-            //              p.Description
-            //              };
-            //var prList = prquery.ToList();
-            //return prList;
+          
          
         }
         // edit danh mục sản phẩm
@@ -74,16 +70,68 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
         [ValidateInput(false)]
         public ActionResult Create([Bind(Include = "Id,Name,Code,Image,Description,Alias")] Category category)
         {
+            if (System.Web.HttpContext.Current.Request.Files.AllKeys.Any())
+            {
+                var pic = System.Web.HttpContext.Current.Request.Files["HelpSectionImages"];
+            }
+      
             if (ModelState.IsValid)
             {
-                db.Categories.Add(category);
+                Category savecategory = new Category();
+                savecategory.Id = category.Id;
+                savecategory.Name = category.Name;
+                savecategory.Code = category.Code;
+                savecategory.Description = category.Description;
+                savecategory.Alias = category.Alias;
+                savecategory.Image =fileimg;
+                savecategory.CreateOn = DateTime.Now;
+
+                db.Categories.Add(savecategory);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
             return View(category);
         }
+  
+        //Post: upload file
+        [AcceptVerbs(HttpVerbs.Post)]
+        public JsonResult UploadFile()
+        {
+            string _imgname = string.Empty;
+            if (System.Web.HttpContext.Current.Request.Files.AllKeys.Any())
+            {
+                var pic = System.Web.HttpContext.Current.Request.Files["MyImages"];
+                if (pic.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(pic.FileName);
+                    var _ext = Path.GetExtension(pic.FileName);
 
+                    _imgname = Guid.NewGuid().ToString();
+                    var _comPath = Server.MapPath("/Upload/MVC_") + _imgname + _ext;
+                    fileimg = "/Upload/MVC_"+_imgname+_ext;
+                    _imgname = "MVC_" + _imgname + _ext;
+                
+                    ViewBag.Msg = _comPath;
+                    var path = _comPath;
+                   
+                    // Saving Image in Original Mode
+                    pic.SaveAs(path);
+                  
+
+                    // resizing image
+                    MemoryStream ms = new MemoryStream();
+                    WebImage img = new WebImage(_comPath);
+
+                    if (img.Width > 200)
+                        img.Resize(200, 200);
+                    img.Save(_comPath);
+                    // end resize
+                }
+            }
+            return Json(Convert.ToString(_imgname), JsonRequestBehavior.AllowGet);
+        }
+      
         // GET: Admin/AllCategories/Edit/5
         public ActionResult Edit(int id)
         {
@@ -128,25 +176,33 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
         // GET: Admin/AllCategories/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
+    
 
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Category cate = db.Categories.Find(id);
+            if (cate == null)
+            {
+                return HttpNotFound();
+            }
+            return View(cate);
+        }
         // POST: Admin/AllCategories/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
         {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            Category cate = db.Categories.Find(id);
+            db.Categories.Remove(cate);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
+       
+     
     }
-}
+    }
+
