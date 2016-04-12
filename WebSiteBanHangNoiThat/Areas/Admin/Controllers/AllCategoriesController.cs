@@ -37,6 +37,7 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
             using (web_interiorEntities db = new web_interiorEntities())
             {
                 var query = from pro in db.Categories
+                           
                             select new AllCategoriesModels()
                             {
                                 Id=pro.Id,

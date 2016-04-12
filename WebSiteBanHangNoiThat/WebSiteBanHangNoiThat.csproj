@@ -164,63 +164,64 @@
     <Compile Include="Areas\Admin\Controllers\AllCategoriesController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ManufacturerController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProfileController.cs" />
     <Compile Include="Areas\Admin\Models\AllCategoriesModels.cs" />
+    <Compile Include="Areas\Admin\Models\ManufacturerModels.cs" />
+    <Compile Include="Areas\Admin\Models\ProductModels.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LocalhostConstraint.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\TaiKhoanController.cs" />
     <Compile Include="DataBaseModels\Category.cs">
-      <DependentUpon>DataBaseInteriorModels.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBaseModels\DataBaseInteriorModels.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DataBaseInteriorModels.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBaseModels\DataBaseInteriorModels.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DataBaseInteriorModels.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBaseModels\DataBaseInteriorModels.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DataBaseInteriorModels.edmx</DependentUpon>
+      <DependentUpon>web_interiorEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBaseModels\Manufacturer.cs">
-      <DependentUpon>DataBaseInteriorModels.tt</DependentUpon>
+      <DependentUpon>web_interiorEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBaseModels\Order.cs">
-      <DependentUpon>DataBaseInteriorModels.tt</DependentUpon>
+      <DependentUpon>web_interiorEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBaseModels\OrderDetail.cs">
-      <DependentUpon>DataBaseInteriorModels.tt</DependentUpon>
+      <DependentUpon>web_interiorEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBaseModels\Product.cs">
-      <DependentUpon>DataBaseInteriorModels.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBaseModels\ProductsManufacturer.cs">
-      <DependentUpon>DataBaseInteriorModels.tt</DependentUpon>
+      <DependentUpon>web_interiorEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBaseModels\Role.cs">
-      <DependentUpon>DataBaseInteriorModels.tt</DependentUpon>
+      <DependentUpon>web_interiorEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBaseModels\sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>DataBaseInteriorModels.tt</DependentUpon>
+      <DependentUpon>web_interiorEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBaseModels\sp_helpdiagrams_Result.cs">
-      <DependentUpon>DataBaseInteriorModels.tt</DependentUpon>
+      <DependentUpon>web_interiorEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBaseModels\Store.cs">
-      <DependentUpon>DataBaseInteriorModels.tt</DependentUpon>
+      <DependentUpon>web_interiorEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBaseModels\sysdiagram.cs">
-      <DependentUpon>DataBaseInteriorModels.tt</DependentUpon>
+      <DependentUpon>web_interiorEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBaseModels\User.cs">
-      <DependentUpon>DataBaseInteriorModels.tt</DependentUpon>
+      <DependentUpon>web_interiorEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModels\web_interiorEntities.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>web_interiorEntities.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModels\web_interiorEntities.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>web_interiorEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModels\web_interiorEntities.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>web_interiorEntities.edmx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -811,23 +812,6 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="DataBaseModels\DataBaseInteriorModels.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DataBaseInteriorModels.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="DataBaseModels\DataBaseInteriorModels.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DataBaseInteriorModels.edmx</DependentUpon>
-      <LastGenOutput>DataBaseInteriorModels.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="DataBaseModels\DataBaseInteriorModels.edmx.diagram">
-      <DependentUpon>DataBaseInteriorModels.edmx</DependentUpon>
-    </Content>
-    <Content Include="DataBaseModels\DataBaseInteriorModels.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DataBaseInteriorModels.edmx</DependentUpon>
-      <LastGenOutput>DataBaseInteriorModels.cs</LastGenOutput>
-    </Content>
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Admin\Views\Shared\_Layout_Share.cshtml" />
     <Content Include="Assets\dist\assets\bs3\fonts\glyphicons-halflings-regular.eot" />
@@ -864,6 +848,26 @@
     <Content Include="Content\ckeditor\samples\toolbarconfigurator\lib\codemirror\LICENSE" />
     <Content Include="Content\ckeditor\skins\moono\readme.md" />
     <Content Include="Areas\Admin\Views\AllCategories\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Manufacturer\Index.cshtml" />
+    <EntityDeploy Include="DataBaseModels\web_interiorEntities.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>web_interiorEntities.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="DataBaseModels\web_interiorEntities.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>web_interiorEntities.edmx</DependentUpon>
+      <LastGenOutput>web_interiorEntities.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DataBaseModels\web_interiorEntities.edmx.diagram">
+      <DependentUpon>web_interiorEntities.edmx</DependentUpon>
+    </Content>
+    <Content Include="DataBaseModels\web_interiorEntities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>web_interiorEntities.edmx</DependentUpon>
+      <LastGenOutput>web_interiorEntities.cs</LastGenOutput>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

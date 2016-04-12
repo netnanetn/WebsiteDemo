@@ -1,0 +1,79 @@
+﻿@model IEnumerable<WebSiteBanHangNoiThat.Areas.Admin.Models.ProductModels>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_Share.cshtml";
+}
+<table class="table" style="margin-left:20px">
+    <thead>
+        <tr>
+            <th>  <h2 class="header__main"><span class="breadcrumb"><i class="fa fa-credit-card"></i> </span><span class="title">Sản phẩm</span></h2></th>
+            <th style="float:right">
+
+                <a class="btn btn-default" href="javascript:void(0)" bind-event-click="showExportOrders()">Quản lý kho</a>
+                <a class="btn btn-primary" href="/Admin/Product/create">Thêm mới</a>
+
+            </th>
+
+        </tr>
+    </thead>
+
+</table>
+
+<table class="table table-hover" style="margin-left:60px">
+    <tr>
+        <th>
+            <input id="Checkbox1" type="checkbox" />
+        </th>
+        <th style="width:50px" ;>
+
+        </th>
+        <th>
+            <h4><b>Sản phẩm</b></h4>
+        </th>
+        <th>
+            <h4><b>Kho hàng</b></h4>
+        </th>
+        <th>
+            <h4><b>Loại</b></h4>
+        </th>
+        <th>
+            <h4><b>Nhà cung cấp</b></h4>
+        </th>
+        <th></th>
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="select">
+                <input type="checkbox" value="313248" name="ids" bind-event-change="addOrRemoveBulkActionItem(313248,this)" id="bulk-action-313248" class="bulk-action-item">
+            </td>
+            <td>
+                <img class="img-circle" src=@Html.DisplayFor(modelItem => item.Image) height="50px" width="50px">
+            </td>
+            <td>
+
+
+          
+                @Html.ActionLink(item.Name, "Edit", new { id = item.Id })
+
+            </td>
+            <td>
+                @Html.Raw(item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductKind)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductManu)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>

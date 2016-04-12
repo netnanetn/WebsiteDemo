@@ -17,7 +17,6 @@ namespace WebSiteBanHangNoiThat.DataBaseModels
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Product()
         {
-            this.ProductsManufacturers = new HashSet<ProductsManufacturer>();
             this.OrderDetails = new HashSet<OrderDetail>();
             this.Categories = new HashSet<Category>();
         }
@@ -30,7 +29,7 @@ namespace WebSiteBanHangNoiThat.DataBaseModels
         public Nullable<decimal> SalePrice { get; set; }
         public string Barcode { get; set; }
         public Nullable<int> CategorieId { get; set; }
-        public Nullable<int> ManufacturerId { get; set; }
+        public int ManufacturerId { get; set; }
         public string StockStatus { get; set; }
         public string Available { get; set; }
         public Nullable<System.DateTime> CreateOn { get; set; }
@@ -41,8 +40,7 @@ namespace WebSiteBanHangNoiThat.DataBaseModels
         public string Description { get; set; }
         public string Unit { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProductsManufacturer> ProductsManufacturers { get; set; }
+        public virtual Manufacturer Manufacturer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

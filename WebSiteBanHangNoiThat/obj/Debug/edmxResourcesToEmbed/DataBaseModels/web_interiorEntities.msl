@@ -28,12 +28,6 @@
           <ScalarProperty Name="CreateOn" ColumnName="CreateOn" />
           <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
         </MappingFragment>
-        <MappingFragment StoreEntitySet="Products">
-          <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
-          <ScalarProperty Name="CreateOn" ColumnName="CreateOn" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="OrderDetails">
@@ -90,14 +84,6 @@
           <ScalarProperty Name="Code" ColumnName="Code" />
           <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="Unit" ColumnName="Unit" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="ProductsManufacturers">
-      <EntityTypeMapping TypeName="web_interiorModel.ProductsManufacturer">
-        <MappingFragment StoreEntitySet="ProductsManufacturers">
-          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
-          <ScalarProperty Name="ManufacturerId" ColumnName="ManufacturerId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

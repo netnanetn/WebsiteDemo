@@ -32,7 +32,6 @@ namespace WebSiteBanHangNoiThat.DataBaseModels
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Product> Products { get; set; }
-        public virtual DbSet<ProductsManufacturer> ProductsManufacturers { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Store> Stores { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }

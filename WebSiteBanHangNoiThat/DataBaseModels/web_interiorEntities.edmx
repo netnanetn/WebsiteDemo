@@ -83,7 +83,7 @@
           <Property Name="SalePrice" Type="decimal" Precision="18" Scale="0" />
           <Property Name="Barcode" Type="nvarchar" MaxLength="200" />
           <Property Name="CategorieId" Type="int" />
-          <Property Name="ManufacturerId" Type="int" />
+          <Property Name="ManufacturerId" Type="int" Nullable="false" />
           <Property Name="StockStatus" Type="nvarchar" MaxLength="200" />
           <Property Name="Available" Type="nvarchar" MaxLength="200" />
           <Property Name="CreateOn" Type="date" />
@@ -101,14 +101,6 @@
           </Key>
           <Property Name="ProductId" Type="int" Nullable="false" />
           <Property Name="CategorieId" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="ProductsManufacturers">
-          <Key>
-            <PropertyRef Name="ProductId" />
-            <PropertyRef Name="ManufacturerId" />
-          </Key>
-          <Property Name="ProductId" Type="int" Nullable="false" />
-          <Property Name="ManufacturerId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Roles">
           <Key>
@@ -209,6 +201,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Products_Manufacturers">
+          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="ManufacturerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ProductsCategories_Categories">
           <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
           <End Role="ProductsCategories" Type="Self.ProductsCategories" Multiplicity="*" />
@@ -230,30 +234,6 @@
             </Principal>
             <Dependent Role="ProductsCategories">
               <PropertyRef Name="ProductId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ProductsManufacturers_Manufacturers">
-          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="1" />
-          <End Role="ProductsManufacturers" Type="Self.ProductsManufacturers" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Manufacturers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ProductsManufacturers">
-              <PropertyRef Name="ManufacturerId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ProductsManufacturers_Products">
-          <End Role="Products" Type="Self.Products" Multiplicity="1" />
-          <End Role="ProductsManufacturers" Type="Self.ProductsManufacturers" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Products">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ProductsManufacturers">
-              <PropertyRef Name="ManufacturerId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -320,7 +300,6 @@
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductsCategories" EntityType="Self.ProductsCategories" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ProductsManufacturers" EntityType="Self.ProductsManufacturers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Store" EntityType="Self.Store" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
@@ -342,6 +321,10 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
+          <AssociationSet Name="FK_Products_Manufacturers" Association="Self.FK_Products_Manufacturers">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
           <AssociationSet Name="FK_ProductsCategories_Categories" Association="Self.FK_ProductsCategories_Categories">
             <End Role="Categories" EntitySet="Categories" />
             <End Role="ProductsCategories" EntitySet="ProductsCategories" />
@@ -349,14 +332,6 @@
           <AssociationSet Name="FK_ProductsCategories_Products" Association="Self.FK_ProductsCategories_Products">
             <End Role="Products" EntitySet="Products" />
             <End Role="ProductsCategories" EntitySet="ProductsCategories" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProductsManufacturers_Manufacturers" Association="Self.FK_ProductsManufacturers_Manufacturers">
-            <End Role="Manufacturers" EntitySet="Manufacturers" />
-            <End Role="ProductsManufacturers" EntitySet="ProductsManufacturers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProductsManufacturers_Products" Association="Self.FK_ProductsManufacturers_Products">
-            <End Role="Products" EntitySet="Products" />
-            <End Role="ProductsManufacturers" EntitySet="ProductsManufacturers" />
           </AssociationSet>
           <AssociationSet Name="FK_UserRoles_Roles" Association="Self.FK_UserRoles_Roles">
             <End Role="Roles" EntitySet="Roles" />
@@ -399,7 +374,7 @@
           <Property Name="TaxNumber" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="CreateOn" Type="DateTime" Precision="0" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="ProductsManufacturers" Relationship="Self.FK_ProductsManufacturers_Manufacturers" FromRole="Manufacturers" ToRole="ProductsManufacturers" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_Products_Manufacturers" FromRole="Manufacturers" ToRole="Products" />
         </EntityType>
         <EntityType Name="OrderDetail">
           <Key>
@@ -448,7 +423,7 @@
           <Property Name="SalePrice" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="Barcode" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="CategorieId" Type="Int32" />
-          <Property Name="ManufacturerId" Type="Int32" />
+          <Property Name="ManufacturerId" Type="Int32" Nullable="false" />
           <Property Name="StockStatus" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Available" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="CreateOn" Type="DateTime" Precision="0" />
@@ -458,19 +433,9 @@
           <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Unit" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="ProductsManufacturers" Relationship="Self.FK_ProductsManufacturers_Products" FromRole="Products" ToRole="ProductsManufacturers" />
+          <NavigationProperty Name="Manufacturer" Relationship="Self.FK_Products_Manufacturers" FromRole="Products" ToRole="Manufacturers" />
           <NavigationProperty Name="OrderDetails" Relationship="Self.OrderDetailsProducts" FromRole="Products" ToRole="OrderDetails" />
           <NavigationProperty Name="Categories" Relationship="Self.ProductsCategories" FromRole="Products" ToRole="Categories" />
-        </EntityType>
-        <EntityType Name="ProductsManufacturer">
-          <Key>
-            <PropertyRef Name="ProductId" />
-            <PropertyRef Name="ManufacturerId" />
-          </Key>
-          <Property Name="ProductId" Type="Int32" Nullable="false" />
-          <Property Name="ManufacturerId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Manufacturer" Relationship="Self.FK_ProductsManufacturers_Manufacturers" FromRole="ProductsManufacturers" ToRole="Manufacturers" />
-          <NavigationProperty Name="Product" Relationship="Self.FK_ProductsManufacturers_Products" FromRole="ProductsManufacturers" ToRole="Products" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -518,14 +483,14 @@
           <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Users" FromRole="Users" ToRole="Orders" />
           <NavigationProperty Name="Roles" Relationship="Self.UserRoles" FromRole="Users" ToRole="Roles" />
         </EntityType>
-        <Association Name="FK_ProductsManufacturers_Manufacturers">
+        <Association Name="FK_Products_Manufacturers">
           <End Role="Manufacturers" Type="Self.Manufacturer" Multiplicity="1" />
-          <End Role="ProductsManufacturers" Type="Self.ProductsManufacturer" Multiplicity="*" />
+          <End Role="Products" Type="Self.Product" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Manufacturers">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="ProductsManufacturers">
+            <Dependent Role="Products">
               <PropertyRef Name="ManufacturerId" />
             </Dependent>
           </ReferentialConstraint>
@@ -554,18 +519,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProductsManufacturers_Products">
-          <End Role="Products" Type="Self.Product" Multiplicity="1" />
-          <End Role="ProductsManufacturers" Type="Self.ProductsManufacturer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Products">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ProductsManufacturers">
-              <PropertyRef Name="ManufacturerId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="OrderDetailsProducts">
           <End Role="OrderDetails" Type="Self.OrderDetail" Multiplicity="*" />
           <End Role="Products" Type="Self.Product" Multiplicity="*" />
@@ -584,14 +537,13 @@
           <EntitySet Name="OrderDetails" EntityType="Self.OrderDetail" />
           <EntitySet Name="Orders" EntityType="Self.Order" />
           <EntitySet Name="Products" EntityType="Self.Product" />
-          <EntitySet Name="ProductsManufacturers" EntityType="Self.ProductsManufacturer" />
           <EntitySet Name="Roles" EntityType="Self.Role" />
           <EntitySet Name="Stores" EntityType="Self.Store" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="Users" EntityType="Self.User" />
-          <AssociationSet Name="FK_ProductsManufacturers_Manufacturers" Association="Self.FK_ProductsManufacturers_Manufacturers">
+          <AssociationSet Name="FK_Products_Manufacturers" Association="Self.FK_Products_Manufacturers">
             <End Role="Manufacturers" EntitySet="Manufacturers" />
-            <End Role="ProductsManufacturers" EntitySet="ProductsManufacturers" />
+            <End Role="Products" EntitySet="Products" />
           </AssociationSet>
           <AssociationSet Name="FK_OrderDetails_Orders" Association="Self.FK_OrderDetails_Orders">
             <End Role="Orders" EntitySet="Orders" />
@@ -600,10 +552,6 @@
           <AssociationSet Name="FK_Orders_Users" Association="Self.FK_Orders_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="Orders" EntitySet="Orders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProductsManufacturers_Products" Association="Self.FK_ProductsManufacturers_Products">
-            <End Role="Products" EntitySet="Products" />
-            <End Role="ProductsManufacturers" EntitySet="ProductsManufacturers" />
           </AssociationSet>
           <AssociationSet Name="OrderDetailsProducts" Association="Self.OrderDetailsProducts">
             <End Role="OrderDetails" EntitySet="OrderDetails" />
@@ -748,14 +696,6 @@
                 <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Unit" ColumnName="Unit" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ProductsManufacturers">
-            <EntityTypeMapping TypeName="web_interiorModel.ProductsManufacturer">
-              <MappingFragment StoreEntitySet="ProductsManufacturers">
-                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
-                <ScalarProperty Name="ManufacturerId" ColumnName="ManufacturerId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
