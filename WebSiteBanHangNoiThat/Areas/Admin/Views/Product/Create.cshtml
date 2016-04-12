@@ -132,8 +132,23 @@
                                 <span class="help">Loại sản phẩm</span>
 
                                 <div class="controls">
-                                    @Html.EditorFor(model => model.ProductKind, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.ProductKind, "", new { @class = "text-danger" })
+                                    @*@Html.EditorFor(model => model.ProductKind, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.ProductKind, "", new { @class = "text-danger" })*@
+
+                                    <select class="form-control form-select2" data-placeholder="Choose a Country..." multiple>
+                                        <option></option>
+                                        <optgroup label="Danh mục sản phẩm">
+                                            @foreach (var c in Model.ListCategories)
+                                            {
+                                                <option value="@c.Id">@c.Name</option>
+                                            }
+                                          
+                                     
+                                        
+                                        </optgroup>
+
+                                    </select>
+
                                 </div>
                             </div>
                             @* Manufacturers product *@
@@ -238,7 +253,26 @@
                 </div>
             </div>
         </div>
-     
+       
+
+
+            
+             
+                      
+                                     <select class="form-control form-select2" data-placeholder="Choose a Country..." multiple>
+                                         <option></option>
+                                         <optgroup label="Alaskan/Hawaiian Time Zone">
+                                             <option value="AK">Alaska</option>
+                                             <option value="HI">Hawaii</option>
+                                         </optgroup>
+                                     
+                                     </select>
+                              
+                             
+
+                  
+          
+
            
            
                     
@@ -246,3 +280,4 @@
     
     </div>
 }
+

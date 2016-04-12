@@ -24,6 +24,17 @@
     @* editor *@
     <link rel="stylesheet" href="~/Assets/dist/assets/font-awesome/css/font-awesome.css">
     <link rel="stylesheet" href="~/Assets/dist/assets/plugins/bootstrap-wysihtml5/css/bootstrap-wysihtml5.css">
+    @* Select dropdown *@
+    <link rel="stylesheet" href="~/Assets/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Assets/dist/css/veneto-admin.min.css">
+    <link rel="stylesheet" href="~/Assets/demo/css/demo.css">
+    <link rel="stylesheet" href="~/Assets/dist/assets/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="~/Assets/dist/css/plugins/jquery-select2.min.css">
+    <link rel="stylesheet" href="~/Assets/dist/css/plugins/jquery-selectBoxIt.min.css">
+    <link rel="stylesheet" href="~/Assets/dist/css/plugins/jquery-chosen.min.css">
+    <link rel="stylesheet" href="~/Assets/dist/css/plugins/bootstrap-tagsinput.min.css">
+    <link rel="stylesheet" href="~/Assets/dist/css/plugins/bootstrap-switch.min.css">
+    <link rel="stylesheet" href="~/Assets/dist/assets/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
     <style type="text/css">
         .jqstooltip {
             position: absolute;
@@ -588,6 +599,9 @@
         <div class="page-content">
             <!--Content-->
             @RenderBody()
+            @* dung *@
+        
+           
             </div>
         </div>
     <script src="~/Assets/dist/assets/libs/jquery/jquery.min.js"></script>
@@ -622,7 +636,26 @@
             $('.wysihtml5-toolbar .btn-default').removeClass('btn-default').addClass('btn-white');
         });
     </script>
- 
+ @* Dropdown *@
+    <script src="~/Assets/dist/assets/libs/jquery/jquery.min.js"></script>
+    <script src="~/Assets/dist/assets/bs3/js/bootstrap.min.js"></script>
+    <script src="~/Assets/dist/assets/plugins/jquery-navgoco/jquery.navgoco.js"></script>
+    <script src="~/Assets/dist/js/main.js"></script>
+    <!--[if lt IE 9]>
+    <script src="dist/assets/plugins/flot/excanvas.min.js"></script>
+    <![endif]-->
+    <script src="~/Assets/dist/assets/plugins/jquery-sparkline/jquery.sparkline.js"></script>
+    <script src="~/Assets/demo/js/demo.js"></script>
+    <script src="~/Assets/dist/assets/libs/jquery-ui/minified/jquery-ui.min.js"></script>
+    <script src="~/Assets/dist/assets/plugins/jquery-select2/select2.min.js"></script>
+    <script src="~/Assets/dist/assets/plugins/jquery-selectboxit/javascripts/jquery.selectBoxIt.min.js"></script>
+    <script src="~/Assets/dist/assets/plugins/jquery-chosen/chosen.jquery.min.js"></script>
+    <script src="~/Assets/dist/assets/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+    <script src="~/Assets/dist/assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
+    <script src="~/Assets/dist/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="~/Assets/dist/assets/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
+    <script src="~/Assets/dist/assets/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+    <script src="~/Assets/demo/js/forms-advanced-components.js"></script>
 
 
 

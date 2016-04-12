@@ -61,7 +61,7 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
             // return View(ProductModel)
             ProductModels productModels = new ProductModels();
             productModels.ListManufacturers = ListManufacturer();
-
+            productModels.ListCategories = ListCategories();
             return View(productModels);
         }
 
@@ -218,6 +218,24 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
 
                             };
                
+                return query.ToList();
+            }
+
+        }
+        public List<AllCategoriesModels> ListCategories()
+        {
+            using (web_interiorEntities db = new web_interiorEntities())
+            {
+                var query = from pro in db.Categories
+
+                            select new AllCategoriesModels()
+                            {
+                                Id = pro.Id,
+                                Name = pro.Name,
+                               
+
+                            };
+
                 return query.ToList();
             }
 

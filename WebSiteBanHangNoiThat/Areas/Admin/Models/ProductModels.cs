@@ -31,6 +31,7 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Models
         public string ProductKind { get; set; }
         public string ProductManu { get; set; }
         public List<ManufacturerModels> ListManufacturers { get; set; }
+        public List<AllCategoriesModels> ListCategories { get; set; }
         //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         //public virtual ICollection<OrderDetail> OrderDetails { get; set; }
         //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
