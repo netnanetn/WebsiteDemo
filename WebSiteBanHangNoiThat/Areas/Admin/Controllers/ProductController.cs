@@ -13,6 +13,7 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
     public class ProductController : Controller
     {
         public static string pathimg;
+        public static int saveidprocess;
         web_interiorEntities db = new web_interiorEntities();
         // GET: Admin/Product
         public ActionResult Index()
@@ -62,6 +63,7 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
             ProductModels productModels = new ProductModels();
             productModels.ListManufacturers = ListManufacturer();
             productModels.ListCategories = ListCategories();
+       
             return View(productModels);
         }
 
@@ -69,7 +71,7 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
-        public ActionResult Create([Bind(Include = "Id,Name,Code,Image,Description,Alias,ProductKind,ProductManu,Price,SalePrice,Barcode,Size,Unit,StockStatus,Material,Available,ManufacturerId")] ProductModels product)
+        public ActionResult Create([Bind(Include = "Id,Name,Code,Image,Description,Alias,ProductKind,ProductManu,Price,SalePrice,Barcode,Size,Unit,StockStatus,Material,Available,ManufacturerId,ListCategories,CategorieId")] ProductModels product)
         {
             if (System.Web.HttpContext.Current.Request.Files.AllKeys.Any())
             {
@@ -97,7 +99,10 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
                 createProduct.Available = product.Available;
                 createProduct.Material = product.Material;
                 createProduct.ManufacturerId = product.ManufacturerId;
+                createProduct.CategorieId = product.CategorieId;
 
+                var cate = db.Categories.Find(product.CategorieId);
+                createProduct.Categories.Add(cate);
                 // lay danh sach category theo danh sach cac category_ids duoc chon tu client
                 // gan createProduct.Categories = danh sach lay dc o tren
                 // save vào db
@@ -235,11 +240,15 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
                                
 
                             };
-
+               
                 return query.ToList();
             }
 
         }
+
+   
+
+     
 
     }
 }

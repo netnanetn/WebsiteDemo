@@ -1,4 +1,3 @@
-C:\Users\PC\Documents\Visual Studio 2013\Projects\WebSiteBanHangNoiThat\WebSiteBanHangNoiThat\obj\Debug\WebSiteBanHangNoiThat.csprojResolveAssemblyReference.cache
 C:\Users\PC\Documents\Visual Studio 2013\Projects\WebSiteBanHangNoiThat\WebSiteBanHangNoiThat\bin\WebSiteBanHangNoiThat.dll.config
 C:\Users\PC\Documents\Visual Studio 2013\Projects\WebSiteBanHangNoiThat\WebSiteBanHangNoiThat\bin\WebSiteBanHangNoiThat.dll
 C:\Users\PC\Documents\Visual Studio 2013\Projects\WebSiteBanHangNoiThat\WebSiteBanHangNoiThat\bin\WebSiteBanHangNoiThat.pdb
@@ -53,3 +52,4 @@ C:\Users\PC\Documents\Visual Studio 2013\Projects\WebSiteBanHangNoiThat\WebSiteB
 C:\Users\PC\Documents\Visual Studio 2013\Projects\WebSiteBanHangNoiThat\WebSiteBanHangNoiThat\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\PC\Documents\Visual Studio 2013\Projects\WebSiteBanHangNoiThat\WebSiteBanHangNoiThat\obj\Debug\WebSiteBanHangNoiThat.dll
 C:\Users\PC\Documents\Visual Studio 2013\Projects\WebSiteBanHangNoiThat\WebSiteBanHangNoiThat\obj\Debug\WebSiteBanHangNoiThat.pdb
+C:\Users\PC\Documents\Visual Studio 2013\Projects\WebSiteBanHangNoiThat\WebSiteBanHangNoiThat\obj\Debug\WebSiteBanHangNoiThat.csprojResolveAssemblyReference.cache
