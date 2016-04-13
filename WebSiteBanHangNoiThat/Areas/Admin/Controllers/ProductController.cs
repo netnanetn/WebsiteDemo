@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
@@ -26,7 +27,7 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
             using (web_interiorEntities db = new web_interiorEntities())
             {
                 var query = from pro in db.Products
-                            //from cate in pro.Categories
+                            from cate in pro.Categories
                             join manu in db.Manufacturers on pro.ManufacturerId equals manu.Id
                             where 1==1
                             //from manu in pro.Manufacturers
@@ -36,8 +37,7 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
                                 Image = pro.Image,
                                 Name = pro.Name,
                                 Description = pro.Description,
-                             //   ProductKind = cate.Name,
-                                ProductKind=manu.Name,
+                                ProductKind = cate.Name,
                                 ProductManu = manu.Name
 
                             };
@@ -164,23 +164,68 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
         // GET: Admin/Product/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+        
+            Product product = db.Products.Find(id);
+
+            ProductModels productModels = new ProductModels();
+            productModels.Id = product.Id;
+            productModels.Name = product.Name;
+            productModels.Alias = product.Alias;
+            productModels.Image = product.Image;
+            productModels.Price = product.Price;
+            productModels.SalePrice = product.SalePrice;
+            productModels.Barcode = product.Barcode;
+            productModels.CategorieId = product.CategorieId;
+            productModels.StockStatus = product.StockStatus;
+            productModels.Available = product.Available;
+            productModels.Material = product.Material;
+            productModels.Size = product.Size;
+            productModels.Code = product.Code;
+            productModels.Description = product.Description;
+            productModels.Unit = product.Unit;
+
+            productModels.ListCategories = ListCategories();
+            productModels.ListManufacturers = ListManufacturer();
+           
+           
+            if (product == null)
+            {
+                return HttpNotFound();
+            }
+            return View(productModels);
         }
 
         // POST: Admin/Product/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+         [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
+        public ActionResult SaveEdit(int id)
         {
-            try
+            if (System.Web.HttpContext.Current.Request.Files.AllKeys.Any())
             {
-                // TODO: Add update logic here
+                var pic = System.Web.HttpContext.Current.Request.Files["HelpSectionImages"];
+            }
+      
+            //Kiểm tra hợp lệ dữ liệu phía server
+            var product = db.Products.Find(id);
 
-                return RedirectToAction("Index");
-            }
-            catch
+            if (TryUpdateModel(product, "", new string[] { "Name","Image", "Code", "Barcode", "Description", "CategorieId", "ManufacturerId", "Price", "SalePrice", "Alias", "StockStatus", "Available", "Material", "Unit", "Size" }))
             {
-                return View();
+                if (pathimg != product.Image)
+                {
+                    product.Image = pathimg;
+                }
+                product.ModifiedOn = DateTime.Now;
+                //Cập nhật thông tin 
+                db.Entry(product).State = System.Data.Entity.EntityState.Modified;
+           
+            
+                db.SaveChanges();
             }
+            return RedirectToAction("Index");
         }
 
         // GET: Admin/Product/Delete/5
