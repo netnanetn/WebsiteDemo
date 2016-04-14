@@ -1,0 +1,151 @@
+﻿@model WebSiteBanHangNoiThat.DataBaseModels.User
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_Share.cshtml";
+}
+
+<table class="table" style="margin-left:20px">
+    <thead>
+        <tr>
+            <th>  <h2 class="header__main"><span class="breadcrumb"><i class="fa fa-credit-card"></i> </span><span class="title">Danh mục sản phẩm/ Thêm Khách Hàng</span></h2></th>
+            <th>
+
+                <a class="btn btn-default" href="javascript:void(0)" bind-event-click="showExportOrders()">Xuất danh sách khách hàng</a>
+                <a class="btn btn-primary" href="/Admin/Order/Index">Hủy</a>
+
+            </th>
+
+        </tr>
+    </thead>
+
+</table>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @*Ke ke*@
+    <div class="container-fluid-md">
+        <div class="row">
+
+            <div class="col-md-4 col-lg-3">
+
+
+                @*<input type="file" id="uploadEditorImage" />*@
+                <h3><span><b>Thông tin khách hàng</b></span></h3>
+                <span><i>Thông tin cơ bản về khách hàng</i></span>
+              
+
+            </div>
+            <div class="col-md-8 col-lg-9">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">Thêm danh mục sản phẩm</h4>
+
+
+                        <div class="panel-options">
+                            <a href="#" data-rel="collapse"><i class="fa fa-fw fa-minus"></i></a>
+                            <a href="#" data-rel="reload"><i class="fa fa-fw fa-refresh"></i></a>
+                            <a href="#" data-rel="close"><i class="fa fa-fw fa-times"></i></a>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <form role="form">
+                            <div class="form-group">
+
+                                <span class="help">Tên khách hàng</span>
+
+                                <div class="controls">
+                                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <span class="help">Email</span>
+
+                                <div class="controls">
+                                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </form>
+
+
+
+                     
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-lg-3">
+                <h4><span><b>Địa chỉ</b></span></h4>
+                <span><i>Địa chỉ khách hàng</i></span>
+            </div>
+            <div class="col-md-8 col-lg-9">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">Thêm danh mục sản phẩm</h4>
+
+
+                        <div class="panel-options">
+                            <a href="#" data-rel="collapse"><i class="fa fa-fw fa-minus"></i></a>
+                            <a href="#" data-rel="reload"><i class="fa fa-fw fa-refresh"></i></a>
+                            <a href="#" data-rel="close"><i class="fa fa-fw fa-times"></i></a>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <form role="form">
+                            <div class="form-group">
+
+                                <span class="help">Tên khách hàng</span>
+
+                                <div class="controls">
+                                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <span class="help">Địa chỉ giao hàng</span>
+
+                                <div class="controls">
+                                    @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </form>
+                         <div class="form-group">
+
+                                <span class="help">Điện thoại</span>
+
+                                <div class="controls">
+                                    @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                       
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+
+
+          
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-10 col-md-10">
+                <input type="submit" value="Lưu" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+
+
+}

@@ -162,12 +162,16 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AllCategoriesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CustomerController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
     <Compile Include="Areas\Admin\Controllers\ManufacturerController.cs" />
+    <Compile Include="Areas\Admin\Controllers\OrderController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProfileController.cs" />
     <Compile Include="Areas\Admin\Models\AllCategoriesModels.cs" />
+    <Compile Include="Areas\Admin\Models\AllCustomersModels.cs" />
+    <Compile Include="Areas\Admin\Models\AllOrderModels.cs" />
     <Compile Include="Areas\Admin\Models\ManufacturerModels.cs" />
     <Compile Include="Areas\Admin\Models\ProductModels.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -869,6 +873,10 @@
       <LastGenOutput>web_interiorEntities.cs</LastGenOutput>
     </Content>
     <Content Include="Areas\Admin\Views\Product\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Order\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Order\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Customer\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Customer\Create.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

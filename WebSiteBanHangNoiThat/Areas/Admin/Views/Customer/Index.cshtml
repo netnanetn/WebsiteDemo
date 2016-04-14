@@ -1,0 +1,67 @@
+﻿@model IEnumerable<WebSiteBanHangNoiThat.Areas.Admin.Models.AllCustomersModels>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_Share.cshtml";
+}
+
+<table class="table" style="margin-left:20px">
+    <thead>
+        <tr>
+            <th>  <h2 class="header__main"><span class="breadcrumb"><i class="fa fa-credit-card"></i> </span><span class="title">Danh sách khách hàng</span></h2></th>
+            <th>
+
+                <a class="btn btn-default" href="javascript:void(0)" bind-event-click="showExportOrders()">Xuất danh sách khách hàng</a>
+                <a class="btn btn-primary" href="/Admin/Customer/create">Thêm khách hàng</a>
+
+            </th>
+
+        </tr>
+    </thead>
+
+</table>
+
+<table class="table table-hover" style="margin-left:60px">
+    <tr>
+        <th>
+            <h5><b>Họ tên</b></h5>
+        </th>
+        <th>
+            <h5><b>Email</b></h5>
+        </th>
+
+        <th>
+            <h5><b>Số lượng đơn hàng</b></h5>
+        </th>
+        <th>
+            <h5><b>Đơn hàng gần nhất</b></h5>
+        </th>
+        <th>
+            <h5><b>Tổng chi tiêu</b></h5>
+        </th>
+     
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberOrder)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem=>item.OrderRecently)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalCost)
+            </td>
+          
+        </tr>
+    }
+
+</table>
