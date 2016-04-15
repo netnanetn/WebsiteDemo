@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using WebSiteBanHangNoiThat.DataBaseModels;
+using Models.DAO;
+using Models.EF;
+using Models.ViewModels;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Security;
 

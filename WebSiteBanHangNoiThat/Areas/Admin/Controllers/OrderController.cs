@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using WebSiteBanHangNoiThat.DataBaseModels;
-using WebSiteBanHangNoiThat.Areas.Admin.Models;
+using Models.DAO;
+using Models.EF;
+using Models.ViewModels;
 
 namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
 {
     public class OrderController : Controller
     {
         // GET: Admin/Order
+        web_interiorEntities db = new web_interiorEntities();
         public ActionResult Index()
         {
             return View(ListAll());
@@ -52,6 +54,8 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
         // GET: Admin/Order/Create
         public ActionResult Create()
         {
+            AllOrderModels allorder = new AllOrderModels();
+            allorder.ListProduct = ListProducts();
             return View();
         }
 
@@ -114,5 +118,28 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
                 return View();
             }
         }
+
+
+
+        public List<ProductModels> ListProducts()
+        {
+            using (web_interiorEntities db = new web_interiorEntities())
+            {
+                var query = from pro in db.Products
+
+                            select new ProductModels()
+                            {
+                                Id = pro.Id,
+                                Name = pro.Name,
+                                Price=pro.Price,
+
+
+                            };
+
+                return query.ToList();
+            }
+
+        }
     }
+
 }

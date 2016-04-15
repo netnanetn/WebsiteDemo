@@ -4,7 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-using WebSiteBanHangNoiThat.DataBaseModels;
+using Models.DAO;
+using Models.EF;
+using Models.ViewModels;
 using WebSiteBanHangNoiThat.Models;
 
 namespace WebSiteBanHangNoiThat.Controllers
@@ -73,7 +75,7 @@ namespace WebSiteBanHangNoiThat.Controllers
         }
 
         [HttpPost]
-        public ActionResult KiemTraDangNhap(DangNhapViewModel taikhoan)
+        public ActionResult KiemTraDangNhap(LoginModel taikhoan)
         {
             if (ModelState.IsValid)
             {

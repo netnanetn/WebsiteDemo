@@ -3,40 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using WebSiteBanHangNoiThat.DataBaseModels;
-using WebSiteBanHangNoiThat.Areas.Admin.Models;
+using Models.DAO;
+using Models.EF;
+using Models.ViewModels;
 namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
 {
     public class ManufacturerController : Controller
     {
+        ManufacturerDAO mn = new ManufacturerDAO();
         // GET: Admin/Manufacturer
         public ActionResult Index()
         {
-            return View(ListAll());
+            return View(mn.ListAll());
         }
         //lấy ra danh sách
-        public List<ManufacturerModels> ListAll()
-        {
-            using (web_interiorEntities db = new web_interiorEntities())
-            {
-                var query = from pro in db.Manufacturers
-                          
-                            select new ManufacturerModels()
-                            {
-                                Id = pro.Id,
-                                Name = pro.Name,
-                                Address = pro.Address,
-                                Logo = pro.Logo,
-                                PhoneNumber = pro.PhoneNumber,
-                                TaxNumber=pro.TaxNumber
-
-                            };
-
-
-                return query.ToList();
-            }
-
-        }
+      
 
         // GET: Admin/Manufacturer/Details/5
         public ActionResult Details(int id)

@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using WebSiteBanHangNoiThat.DataBaseModels;
-using WebSiteBanHangNoiThat.Areas.Admin.Models;
 using System.Net;
 using System.Data.Entity;
 using System.IO;
 using System.Web.Helpers;
+using Models.DAO;
+using Models.EF;
+using Models.ViewModels;
 
 namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
 {
@@ -16,6 +17,8 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
   
     public class AllCategoriesController : Controller
     {
+        CategoryDAO x = new CategoryDAO();
+
         public static string fileimg;
 
         web_interiorEntities db = new web_interiorEntities();
@@ -27,31 +30,10 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
          [Authorize(Roles = "SuperAdmin")]
         public ActionResult Index()
         {
-           
-
-            return View(ListAll());
+            return View(x.ListAllCategory());
         }
          
-        public List<AllCategoriesModels> ListAll()
-        {
-            using (web_interiorEntities db = new web_interiorEntities())
-            {
-                var query = from pro in db.Categories
-                           
-                            select new AllCategoriesModels()
-                            {
-                                Id=pro.Id,
-                              Name=  pro.Name,
-                              Description= pro.Description,
-                              Image=pro.Image
-                            };
-
-                return query.ToList();
-            }
-          
-         
-        }
-        // edit danh mục sản phẩm
+     
   
         // GET: Admin/AllCategories/Details/5
         public ActionResult Details(int id)
@@ -77,18 +59,20 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
             }
       
             if (ModelState.IsValid)
-            {
-                Category savecategory = new Category();
-                savecategory.Id = category.Id;
-                savecategory.Name = category.Name;
-                savecategory.Code = category.Code;
-                savecategory.Description = category.Description;
-                savecategory.Alias = category.Alias;
-                savecategory.Image =fileimg;
-                savecategory.CreateOn = DateTime.Now;
+            { 
+                x.CreateCategory(category,fileimg);
+                
+                //Category savecategory = new Category();
+                //savecategory.Id = category.Id;
+                //savecategory.Name = category.Name;
+                //savecategory.Code = category.Code;
+                //savecategory.Description = category.Description;
+                //savecategory.Alias = category.Alias;
+                //savecategory.Image =fileimg;
+                //savecategory.CreateOn = DateTime.Now;
 
-                db.Categories.Add(savecategory);
-                db.SaveChanges();
+                //db.Categories.Add(savecategory);
+                //db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -140,13 +124,12 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = db.Categories.Find(id);
-                               
-            if (category == null)
+              Category c= x.EditCategory(id);
+            if (c == null)
             {
                 return HttpNotFound();
             }
-            return View(category);
+            return View(c);
         }
 
         // POST: Admin/AllCategories/Edit/5
@@ -155,8 +138,7 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(category).State = EntityState.Modified;
-                db.SaveChanges();
+                x.SaveEditCategory(category);
                 return RedirectToAction("Index");
             }
             return View(category);
@@ -171,7 +153,8 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
             }
       
             //Kiểm tra hợp lệ dữ liệu phía server
-            var category = db.Categories.Find(id);
+         //   Category category = db.Categories.Find(id);
+            Category category = x.FindCategory(id);
        
             if (TryUpdateModel(category, "", new string[] { "Name","Code","Image","Description","Alias","CreateOn","ModifiedOn","Status" }))
             {
@@ -179,11 +162,10 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
                 {
                     category.Image = fileimg;
                 }
+          
                 //Cập nhật thông tin 
-                db.Entry(category).State = System.Data.Entity.EntityState.Modified;
-           
-            
-                db.SaveChanges();
+              
+                x.SaveEditCategory(category);
             }
             return RedirectToAction("Index");
         }
@@ -208,9 +190,7 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Category cate = db.Categories.Find(id);
-            db.Categories.Remove(cate);
-            db.SaveChanges();
+            x.DeleteCategory(id);
             return RedirectToAction("Index");
         }
        

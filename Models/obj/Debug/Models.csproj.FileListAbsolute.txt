@@ -1,0 +1,10 @@
+C:\Users\PC\Documents\Visual Studio 2013\Projects\WebSiteBanHangNoiThat\Models\bin\Debug\Models.dll.config
+C:\Users\PC\Documents\Visual Studio 2013\Projects\WebSiteBanHangNoiThat\Models\bin\Debug\Models.dll
+C:\Users\PC\Documents\Visual Studio 2013\Projects\WebSiteBanHangNoiThat\Models\bin\Debug\Models.pdb
+C:\Users\PC\Documents\Visual Studio 2013\Projects\WebSiteBanHangNoiThat\Models\bin\Debug\EntityFramework.dll
+C:\Users\PC\Documents\Visual Studio 2013\Projects\WebSiteBanHangNoiThat\Models\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\PC\Documents\Visual Studio 2013\Projects\WebSiteBanHangNoiThat\Models\bin\Debug\EntityFramework.xml
+C:\Users\PC\Documents\Visual Studio 2013\Projects\WebSiteBanHangNoiThat\Models\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\PC\Documents\Visual Studio 2013\Projects\WebSiteBanHangNoiThat\Models\obj\Debug\Models.dll
+C:\Users\PC\Documents\Visual Studio 2013\Projects\WebSiteBanHangNoiThat\Models\obj\Debug\Models.pdb
+C:\Users\PC\Documents\Visual Studio 2013\Projects\WebSiteBanHangNoiThat\Models\obj\Debug\Models.csprojResolveAssemblyReference.cache

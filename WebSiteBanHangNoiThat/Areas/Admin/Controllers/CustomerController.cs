@@ -3,42 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using WebSiteBanHangNoiThat.Areas.Admin.Models;
-using WebSiteBanHangNoiThat.DataBaseModels;
+using Models.DAO;
+using Models.EF;
+using Models.ViewModels;
+
 namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
 {
     public class CustomerController : Controller
     {
-        web_interiorEntities db = new web_interiorEntities();
+        CustomerDAO c = new CustomerDAO();
         // GET: Admin/Customer
         public ActionResult Index()
         {
-            return View(ListAll());
+            return View(c.ListAll());
         }
-        public List<AllCustomersModels> ListAll()
-        {
-            using (web_interiorEntities db = new web_interiorEntities())
-            {
-                var query = from pro in db.Users
-                            from or in pro.Orders
-                            //join or in db.Orders on pro.Id equals or.UserId
-                            where 1 == 1
-                            select new AllCustomersModels()
-                            {
-                                Id = pro.Id,
-                                Name = pro.Name,
-                               Email=pro.Email,
-                              TotalCost=or.TotalPrice,
-                            OrderRecently=or.Name,
-                            NumberOrder=1
-             
-                            };
-               
-                return query.ToList();
-            }
+   
 
-
-        }
 
         // GET: Admin/Customer/Details/5
         public ActionResult Details(int id)
@@ -60,14 +40,7 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = new User();
-                user.Name = customer.Name;
-                user.Address = customer.Address;
-                user.PhoneNumber = customer.PhoneNumber;
-                var cate = db.Roles.Find(customer.Id);
-                user.Roles.Add(cate);
-                db.Users.Add(user);
-                db.SaveChanges();
+                c.CreateCustomer(customer);
                 return RedirectToAction("Index");
             }
             return View(customer);

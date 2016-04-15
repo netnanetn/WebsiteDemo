@@ -169,64 +169,11 @@
     <Compile Include="Areas\Admin\Controllers\OrderController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProfileController.cs" />
-    <Compile Include="Areas\Admin\Models\AllCategoriesModels.cs" />
-    <Compile Include="Areas\Admin\Models\AllCustomersModels.cs" />
-    <Compile Include="Areas\Admin\Models\AllOrderModels.cs" />
-    <Compile Include="Areas\Admin\Models\ManufacturerModels.cs" />
-    <Compile Include="Areas\Admin\Models\ProductModels.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LocalhostConstraint.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\TaiKhoanController.cs" />
-    <Compile Include="DataBaseModels\Category.cs">
-      <DependentUpon>web_interiorEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBaseModels\Manufacturer.cs">
-      <DependentUpon>web_interiorEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBaseModels\Order.cs">
-      <DependentUpon>web_interiorEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBaseModels\OrderDetail.cs">
-      <DependentUpon>web_interiorEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBaseModels\Product.cs">
-      <DependentUpon>web_interiorEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBaseModels\Role.cs">
-      <DependentUpon>web_interiorEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBaseModels\sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>web_interiorEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBaseModels\sp_helpdiagrams_Result.cs">
-      <DependentUpon>web_interiorEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBaseModels\Store.cs">
-      <DependentUpon>web_interiorEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBaseModels\sysdiagram.cs">
-      <DependentUpon>web_interiorEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBaseModels\User.cs">
-      <DependentUpon>web_interiorEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBaseModels\web_interiorEntities.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>web_interiorEntities.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBaseModels\web_interiorEntities.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>web_interiorEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBaseModels\web_interiorEntities.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>web_interiorEntities.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -833,7 +780,6 @@
     <Content Include="Areas\Admin\Views\Profile\Profile.cshtml" />
     <Content Include="Areas\Admin\Views\AllCategories\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\AllCategories\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\AllCategories\Test.cshtml" />
     <Content Include="Content\ckeditor\CHANGES.md" />
     <Content Include="Content\ckeditor\LICENSE.md" />
     <Content Include="Content\ckeditor\plugins\scayt\CHANGELOG.md" />
@@ -855,28 +801,12 @@
     <Content Include="Areas\Admin\Views\Product\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Product\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Manufacturer\Index.cshtml" />
-    <EntityDeploy Include="DataBaseModels\web_interiorEntities.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>web_interiorEntities.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="DataBaseModels\web_interiorEntities.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>web_interiorEntities.edmx</DependentUpon>
-      <LastGenOutput>web_interiorEntities.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="DataBaseModels\web_interiorEntities.edmx.diagram">
-      <DependentUpon>web_interiorEntities.edmx</DependentUpon>
-    </Content>
-    <Content Include="DataBaseModels\web_interiorEntities.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>web_interiorEntities.edmx</DependentUpon>
-      <LastGenOutput>web_interiorEntities.cs</LastGenOutput>
-    </Content>
     <Content Include="Areas\Admin\Views\Product\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Order\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Order\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Customer\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Customer\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Order\Edit.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -926,9 +856,11 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\TaiKhoan\DangKy.cshtml" />
     <Content Include="Views\TaiKhoan\DangNhap.cshtml" />
+    <Content Include="Views\TaiKhoan\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Upload\" />
   </ItemGroup>
   <ItemGroup>
@@ -940,6 +872,15 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Models\Models.csproj">
+      <Project>{3ef7a1b9-f2ed-42bc-8d6f-ae8c53e3082f}</Project>
+      <Name>Models</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

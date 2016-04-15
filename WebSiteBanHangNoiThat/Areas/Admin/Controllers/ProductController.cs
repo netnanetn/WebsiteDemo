@@ -6,47 +6,25 @@ using System.Net;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
-using WebSiteBanHangNoiThat.Areas.Admin.Models;
-using WebSiteBanHangNoiThat.DataBaseModels;
-
+using Models.DAO;
+using Models.EF;
+using Models.ViewModels;
 namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
 {
     public class ProductController : Controller
     {
+        ProductDAO pr = new ProductDAO();
         public static string pathimg;
         public static int saveidprocess;
         web_interiorEntities db = new web_interiorEntities();
+        
         // GET: Admin/Product
         public ActionResult Index()
         {
-            return View(ListAll());
+            return View(pr.ListAllProduct());
         }
         // list product
-        public List<ProductModels> ListAll()
-        {
-            using (web_interiorEntities db = new web_interiorEntities())
-            {
-                var query = from pro in db.Products
-                            from cate in pro.Categories
-                            join manu in db.Manufacturers on pro.ManufacturerId equals manu.Id
-                            where 1==1
-                            //from manu in pro.Manufacturers
-                            select new ProductModels()
-                            {
-                                Id = pro.Id,
-                                Image = pro.Image,
-                                Name = pro.Name,
-                                Description = pro.Description,
-                                ProductKind = cate.Name,
-                                ProductManu = manu.Name
-
-                            };
-              
-          
-                return query.ToList();
-            }
-
-        }
+  
         // GET: Admin/Product/Details/5
         public ActionResult Details(int id)
         {
