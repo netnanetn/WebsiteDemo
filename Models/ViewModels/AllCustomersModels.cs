@@ -19,6 +19,6 @@ namespace Models.ViewModels
         public int NumberOrder { get; set; }
         public decimal? TotalCost { get; set; }
         public string OrderRecently { get; set; }
-       
+   
     }
 }
