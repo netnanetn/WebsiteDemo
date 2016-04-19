@@ -68,7 +68,7 @@ namespace Models.DAO
                                      savecustomer.PhoneNumber = "";
                                      savecustomer.PassWordHash = "";
                                      savecustomer.Address = "";
-                                     savecustomer.TotalCost = item.TotalCost;
+                                     savecustomer.TotalCost = totalCost(item.Id);
                                      kaka.Add(savecustomer);
                                      
                                  }
@@ -100,6 +100,27 @@ namespace Models.DAO
 
                     return s.ToString();
         }
+        public decimal? totalCost(int id) {
+            decimal? total=0;
+            var s = from p in db.Orders
+                     where p.UserId == id
+                     select new AllOrderModels 
+                     {
+                         Name=p.Name,
+                         ShippingStatus=p.ShippingStatus,
+                         PaymentStatus=p.PaymentStatus,
+                         TotalPrice=p.TotalPrice,
+                     };
+            foreach (var item in s)
+            {
+                if (item.PaymentStatus == true)
+                {
+                    total += item.TotalPrice;
+                }
+            }
+            return total;
+
+}
         public void CreateCustomer(AllCustomersModels customer)
         {
             User user = new User();
