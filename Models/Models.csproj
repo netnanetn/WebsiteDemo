@@ -56,6 +56,7 @@
     <Compile Include="DAO\HomeDAO.cs" />
     <Compile Include="DAO\LoginDAO.cs" />
     <Compile Include="DAO\ManufacturerDAO.cs" />
+    <Compile Include="DAO\OrderDAO.cs" />
     <Compile Include="DAO\ProductDAO.cs" />
     <Compile Include="EF\Category.cs">
       <DependentUpon>web_interiorEntities.tt</DependentUpon>

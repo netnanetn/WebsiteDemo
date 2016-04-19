@@ -15,7 +15,7 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
         // GET: Admin/Customer
         public ActionResult Index()
         {
-            return View(c.ListAll());
+            return View(c.ListAllCustomer());
         }
    
 

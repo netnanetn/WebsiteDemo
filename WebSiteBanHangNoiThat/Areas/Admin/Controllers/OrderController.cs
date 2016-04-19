@@ -13,34 +13,12 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
     {
         // GET: Admin/Order
         web_interiorEntities db = new web_interiorEntities();
+        OrderDAO o = new OrderDAO();
         public ActionResult Index()
         {
-            return View(ListAll());
+            return View(o.ListAllOrder());
         }
-        public List<AllOrderModels> ListAll()
-        {
-            using (web_interiorEntities db = new web_interiorEntities())
-            {
-                var query = from pro in db.Orders
-
-                            select new AllOrderModels()
-                            {
-                                Id = pro.Id,
-                                Name = pro.Name,
-                                CreateOn = pro.CreateOn,
-                                UserName = pro.UserName,
-                                PaymentStatus = pro.PaymentStatus.Value,
-                                ShippingStatus = pro.ShippingStatus,
-                                TotalPrice=pro.TotalPrice,
-                           
-
-                            };
-
-                return query.ToList();
-            }
-
-
-        }
+       
 
 
   

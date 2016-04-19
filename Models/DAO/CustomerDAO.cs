@@ -12,33 +12,64 @@ namespace Models.DAO
     public class CustomerDAO
     {
         web_interiorEntities db = new web_interiorEntities();
-        public List<AllCustomersModels> ListAll()
+        public List<AllCustomersModels> ListAllCustomer()
         {
-            AllCustomersModels kaka = new AllCustomersModels();
-            using (web_interiorEntities db = new web_interiorEntities())
-            {
-                var query = (from pro in db.Users
-                             from order in pro.Orders
-                             orderby order.CreateOn ascending
-                             //join order in db.Orders on pro.Id equals order.UserId
-                             //orderby or.CreateOn descending
-                             where 1 == 1
-                             select new AllCustomersModels()
+                //var query = (from pro in db.Users
+                //             from order in pro.Orders
+                //             orderby order.CreateOn ascending
+                //             //join order in db.Orders on pro.Id equals order.UserId
+                //             //orderby or.CreateOn descending
+                //             where 1 == 1
+                //             select new AllCustomersModels()
+                //             {
+                //                 Id = pro.Id,
+                //                 Name = pro.Name,
+                //                 Email = pro.Email,
+                //                 TotalCost = order.TotalPrice,
+                //                 NumberOrder = pro.Orders.Count,
+                //                 OrderRecently = order.Name
+                                 
+                //             });
+
+                             var c=from pro in db.Users
+                                 select new AllCustomersModels()
                              {
                                  Id = pro.Id,
                                  Name = pro.Name,
                                  Email = pro.Email,
-                                 TotalCost = order.TotalPrice,
+                                 //TotalCost = order.TotalPrice,
                                  NumberOrder = pro.Orders.Count,
-                                 OrderRecently = order.Name
+                               //  OrderRecently = recentlyOrder(Int32.Parse(pro.Id.ToString()))
                                  
-                             });
+                             };
+
+                          
+                                 foreach (var item in c)
+                                 {
+                                  
+                                     item.OrderRecently = recentlyOrder(item.Id);
+                                     item.Id = 1;
+                                     item.Name = "kk";
+                                 }
+
+                             
+
+                return c.ToList();
+            
 
 
-                return query.ToList();
-            }
+        }
+   
+        public string recentlyOrder(int id)
+        {
+            
+                    var s = (from p in db.Orders
+                             where p.UserId == id
+                             orderby p.CreateOn descending
+                             select p.Name).Skip(0).Take(1);
 
 
+                    return s.ToString();
         }
         public void CreateCustomer(AllCustomersModels customer)
         {
