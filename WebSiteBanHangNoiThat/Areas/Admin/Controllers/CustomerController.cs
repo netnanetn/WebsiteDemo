@@ -67,7 +67,11 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
                 return View();
             }
         }
-
+      
+        public ActionResult EditName(int id)
+        {
+            return View(c.ListOrder(id));
+        }
         // GET: Admin/Customer/Delete/5
         public ActionResult Delete(int id)
         {

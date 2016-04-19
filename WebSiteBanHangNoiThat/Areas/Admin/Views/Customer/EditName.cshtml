@@ -1,0 +1,124 @@
+﻿@model IEnumerable<Models.ViewModels.AllOrderModels>
+
+@{
+    ViewBag.Title = "EditName";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_Share.cshtml";
+}
+<table class="table" style="margin-left:20px">
+    <thead>
+        <tr>
+            <th>
+                <h2 class="header__main">
+                    <span class="breadcrumb"><i class="fa fa-credit-card"></i> </span><span class="title">
+                        Danh sach Hoa Don/
+                     @foreach (var ba in Model)
+                     {
+                        @Html.DisplayFor(modelItem => ba.UserName)
+                         break;
+                     }
+                    </span>
+                </h2>
+            </th>
+            <th>
+
+                <a class="btn btn-danger" href="javascript:void(0)" bind-event-click="showExportOrders()">Xuất danh sách Hoa Don</a>
+
+            </th>
+
+        </tr>
+    </thead>
+
+</table>
+<div class="container-fluid-md">
+ 
+        <div class="col-sm-8">
+            <div class="panel panel-default">
+                <div class="panel-body">
+
+                    <table class="table table-hover">
+                        <tr>
+                            <th>
+                                <h5><b>Đơn hàng</b></h5>
+                            </th>
+                            <th>
+                                <h5><b>Ngày tạo</b></h5>
+                            </th>
+                            <th>
+                                <h5><b>TT Thanh toán</b></h5>
+                            </th>
+                            <th>
+                                <h5><b>TT Giao hàng</b></h5>
+                            </th>
+                            <th>
+                                <h5><b>Tổng tiền</b></h5>
+                            </th>
+
+
+
+                        </tr>
+
+                        @foreach (var item in Model)
+                {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CreateOn)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.StringPayment)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.StringShipping)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TotalPrice)
+                                </td>
+                            </tr>
+                }
+
+                    </table>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="text-center">
+                            <h3 class="panel-title">
+                                Thông tin khách hàng
+                            </h3>
+                        </div>
+                       
+                    </div>
+                    <div class="row">
+                       
+                            @foreach (var a in Model)
+                            { <div class="col-sm-12">
+                                <i class="fa fa-fw fa-envelope"></i>
+
+                                @Html.DisplayFor(modelItem => a.UserPhoneNumber)
+                            </div>
+                                 <div class="col-sm-12">
+                                <i class="fa fa-fw fa-home"></i>
+                                     @Html.DisplayFor(modelItem => a.UserAddress)
+                              
+                            </div>
+                                    <div class="col-sm-12">
+                                <i class="fa fa-fw fa-user"></i>
+                                     @Html.DisplayFor(modelItem => a.Name)
+                              
+                            </div>
+                                break;
+                            }
+                        
+                    </div>
+                 </div>
+             </div>
+         </div>
+                
+            </div>
+

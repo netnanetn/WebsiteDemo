@@ -12,7 +12,6 @@ namespace Models.DAO
     public class CustomerDAO
     {
         web_interiorEntities db = new web_interiorEntities();
-        public List<AllCustomersModels> AllModel;
         public List<AllCustomersModels> ListAllCustomer()
         {
             //var query = (from pro in db.Users
@@ -62,24 +61,17 @@ namespace Models.DAO
                                      }
                                      else
                                      {
-                                         savecustomer.OrderRecently = "";
+                                         savecustomer.OrderRecently = "NoOrder";
                                      }
-                                     savecustomer.Email = "";
+                                     savecustomer.Email = item.Email;
                                      savecustomer.PhoneNumber = "";
                                      savecustomer.PassWordHash = "";
                                      savecustomer.Address = "";
                                      savecustomer.TotalCost = totalCost(item.Id);
                                      kaka.Add(savecustomer);
                                      
-                                 }
-
-                             
-
-                               
-                                     return kaka;
-            
-
-
+                                 }                       
+                return kaka;
         }
    
    
@@ -99,6 +91,26 @@ namespace Models.DAO
                     }
 
                     return s.ToString();
+        }
+        public List<AllOrderModels> ListOrder(int id)
+        {
+            var s = from order in db.Orders
+                    where order.UserId == id
+                    select new AllOrderModels
+                    {
+                        Id = order.Id,
+                        CreateOn = order.CreateOn,
+                        PaymentStatus = order.PaymentStatus,
+                        ShippingStatus = order.ShippingStatus,
+                        TotalPrice = order.TotalPrice,
+                        Name = order.Name,
+                        UserAddress = order.UserAddress,
+                        UserPhoneNumber = order.UserPhoneNumber,
+                        UserName=order.UserName,
+                    };
+            return s.ToList();
+
+
         }
         public decimal? totalCost(int id) {
             decimal? total=0;

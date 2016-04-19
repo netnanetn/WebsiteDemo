@@ -46,7 +46,7 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.ActionLink(item.Name, "EditName", new { id=item.Id})
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Email)
@@ -55,7 +55,8 @@
                 @Html.DisplayFor(modelItem => item.NumberOrder)
             </td>
             <td>
-                @Html.DisplayFor(modelItem=>item.OrderRecently)
+                @*@Html.DisplayFor(modelItem=>item.OrderRecently)*@
+                @Html.ActionLink(item.OrderRecently, "EditOrder", new { id=item.Id})
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TotalCost)
