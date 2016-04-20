@@ -4,19 +4,21 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="96756243d4a84aa18d6f40dc450c9f0b" Name="Diagram1">
-        <EntityTypeShape EntityType="web_interiorModel.Category" Width="1.5" PointX="7.5" PointY="7.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="web_interiorModel.Manufacturer" Width="1.5" PointX="7.5" PointY="11" IsExpanded="true" />
+      <Diagram DiagramId="605068cd9b224e38864f0b3ca4ae7546" Name="Diagram1">
+        <EntityTypeShape EntityType="web_interiorModel.Category" Width="1.5" PointX="7.5" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="web_interiorModel.Manufacturer" Width="1.5" PointX="7.5" PointY="11.125" IsExpanded="true" />
         <EntityTypeShape EntityType="web_interiorModel.OrderDetail" Width="1.5" PointX="7.5" PointY="2" IsExpanded="true" />
-        <EntityTypeShape EntityType="web_interiorModel.Order" Width="1.5" PointX="5.25" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="web_interiorModel.Order" Width="1.5" PointX="5.25" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="web_interiorModel.ProductImage" Width="1.5" PointX="12" PointY="2.875" IsExpanded="true" />
         <EntityTypeShape EntityType="web_interiorModel.Product" Width="1.5" PointX="9.75" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="web_interiorModel.Role" Width="1.5" PointX="0.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="web_interiorModel.Role" Width="1.5" PointX="0.75" PointY="2.875" IsExpanded="true" />
         <EntityTypeShape EntityType="web_interiorModel.Store" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="web_interiorModel.sysdiagram" Width="1.5" PointX="2.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="web_interiorModel.User" Width="1.5" PointX="3" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="web_interiorModel.User" Width="1.5" PointX="3" PointY="2.25" IsExpanded="true" />
         <AssociationConnector Association="web_interiorModel.FK_Products_Manufacturers" ManuallyRouted="false" />
         <AssociationConnector Association="web_interiorModel.FK_OrderDetails_Orders" ManuallyRouted="false" />
         <AssociationConnector Association="web_interiorModel.FK_Orders_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="web_interiorModel.FK_ProductImage_Products" ManuallyRouted="false" />
         <AssociationConnector Association="web_interiorModel.OrderDetailsProducts" ManuallyRouted="false" />
         <AssociationConnector Association="web_interiorModel.ProductsCategories" ManuallyRouted="false" />
         <AssociationConnector Association="web_interiorModel.UserRoles" ManuallyRouted="false" />

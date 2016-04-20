@@ -7,4 +7,3 @@ C:\Users\PC\Documents\Visual Studio 2013\Projects\WebSiteBanHangNoiThat\Models\b
 C:\Users\PC\Documents\Visual Studio 2013\Projects\WebSiteBanHangNoiThat\Models\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\PC\Documents\Visual Studio 2013\Projects\WebSiteBanHangNoiThat\Models\obj\Debug\Models.dll
 C:\Users\PC\Documents\Visual Studio 2013\Projects\WebSiteBanHangNoiThat\Models\obj\Debug\Models.pdb
-C:\Users\PC\Documents\Visual Studio 2013\Projects\WebSiteBanHangNoiThat\Models\obj\Debug\Models.csprojResolveAssemblyReference.cache

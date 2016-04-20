@@ -12,14 +12,12 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
     public class CustomerController : Controller
     {
         CustomerDAO c = new CustomerDAO();
+        OrderDAO o = new OrderDAO();
         // GET: Admin/Customer
         public ActionResult Index()
         {
             return View(c.ListAllCustomer());
         }
-   
-
-
         // GET: Admin/Customer/Details/5
         public ActionResult Details(int id)
         {
@@ -71,6 +69,12 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
         public ActionResult EditName(int id)
         {
             return View(c.ListOrder(id));
+        }
+        
+        public ActionResult ViewOrderDetails(int id)
+        {
+
+            return View(o.ListProductOnOrderDetails(id));
         }
         // GET: Admin/Customer/Delete/5
         public ActionResult Delete(int id)

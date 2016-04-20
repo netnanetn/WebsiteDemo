@@ -51,7 +51,7 @@ namespace Models.ViewModels
                 this.StringPayment = StringPayment;
             }
         }
-        public List<OrderDetailsModels> ListorderDetails { get; set; }
+        //public List<OrderDetailModel> ListorderDetails { get; set; }
 
     }
 }

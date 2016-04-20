@@ -73,6 +73,9 @@
     <Compile Include="EF\Product.cs">
       <DependentUpon>web_interiorEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="EF\ProductImage.cs">
+      <DependentUpon>web_interiorEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="EF\Role.cs">
       <DependentUpon>web_interiorEntities.tt</DependentUpon>
     </Compile>
@@ -112,17 +115,15 @@
     <Compile Include="ViewModels\AllCustomersModels.cs" />
     <Compile Include="ViewModels\AllOrderModels.cs" />
     <Compile Include="ViewModels\ManufacturerModels.cs" />
-    <Compile Include="ViewModels\OrderDetailsModels.cs" />
+    <Compile Include="ViewModels\OrderDetailModel.cs" />
     <Compile Include="ViewModels\ProductModels.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.Config" />
     <EntityDeploy Include="EF\web_interiorEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>web_interiorEntities.Designer.cs</LastGenOutput>
     </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.Config" />
     <None Include="EF\web_interiorEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>web_interiorEntities.edmx</DependentUpon>

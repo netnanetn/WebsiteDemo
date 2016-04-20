@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Models.ViewModels
 {
-   public class OrderDetailsModels
+    public class OrderDetailModel
     {
         public int Id { get; set; }
         public string ProductName { get; set; }
@@ -15,7 +15,7 @@ namespace Models.ViewModels
         public Nullable<int> Number { get; set; }
         public Nullable<System.DateTime> CreateOn { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
-        public Nullable<int> OrderId { get; set; }
+        public int OrderId { get; set; }
         public Nullable<decimal> PriceItem { get; set; }
         public string ProductSize { get; set; }
     }

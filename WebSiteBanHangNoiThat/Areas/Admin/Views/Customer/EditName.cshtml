@@ -61,7 +61,9 @@
                 {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Name)
+                                    @*@Html.DisplayFor(modelItem => item.Name)*@
+                                    @Html.ActionLink(item.Name, "ViewOrderDetails", new { id= item.Id})
+                                   
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.CreateOn)

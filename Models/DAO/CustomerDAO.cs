@@ -31,66 +31,66 @@ namespace Models.DAO
 
             //             });
 
-                             var c=from pro in db.Users
-                                 select new AllCustomersModels()
-                             {
-                                 Id = pro.Id,
-                                 Name = pro.Name,
-                                 Email = pro.Email,
-                                 TotalCost = pro.Orders.Sum(o=>o.TotalPrice),
-                                 NumberOrder = pro.Orders.Count,
-                               // OrderRecently = recentlyOrder(Int32.Parse(pro.Id.ToString()))
-                                 
-                             };
+            var c = from pro in db.Users
+                    select new AllCustomersModels()
+                {
+                    Id = pro.Id,
+                    Name = pro.Name,
+                    Email = pro.Email,
+                    TotalCost = pro.Orders.Sum(o => o.TotalPrice),
+                    NumberOrder = pro.Orders.Count,
+                    // OrderRecently = recentlyOrder(Int32.Parse(pro.Id.ToString()))
 
-                             List<AllCustomersModels> kaka=new List<AllCustomersModels>();
-                                 foreach (AllCustomersModels item in c)
-                                 {
-                                     AllCustomersModels savecustomer = new AllCustomersModels();
-                                   
-                                   String s = recentlyOrder(item.Id);
-                                     savecustomer.Id = item.Id;
-                                     savecustomer.Name = item.Name;
-                                     
-                                    
-                                     savecustomer.NumberOrder = item.NumberOrder;
-                                     if (item.NumberOrder > 0)
-                                     {
-                                         savecustomer.OrderRecently = s.ToString();
+                };
 
-                                     }
-                                     else
-                                     {
-                                         savecustomer.OrderRecently = "NoOrder";
-                                     }
-                                     savecustomer.Email = item.Email;
-                                     savecustomer.PhoneNumber = "";
-                                     savecustomer.PassWordHash = "";
-                                     savecustomer.Address = "";
-                                     savecustomer.TotalCost = totalCost(item.Id);
-                                     kaka.Add(savecustomer);
-                                     
-                                 }                       
-                return kaka;
+            List<AllCustomersModels> ListUser = new List<AllCustomersModels>();
+            foreach (AllCustomersModels item in c)
+            {
+                AllCustomersModels savecustomer = new AllCustomersModels();
+
+                String s = recentlyOrder(item.Id);
+                savecustomer.Id = item.Id;
+                savecustomer.Name = item.Name;
+
+
+                savecustomer.NumberOrder = item.NumberOrder;
+                if (item.NumberOrder > 0)
+                {
+                    savecustomer.OrderRecently = s.ToString();
+
+                }
+                else
+                {
+                    savecustomer.OrderRecently = "NoOrder";
+                }
+                savecustomer.Email = item.Email;
+                savecustomer.PhoneNumber = "";
+                savecustomer.PassWordHash = "";
+                savecustomer.Address = "";
+                savecustomer.TotalCost = totalCost(item.Id);
+                ListUser.Add(savecustomer);
+
+            }
+            return ListUser;
         }
-   
-   
+
+
         public string recentlyOrder(int id)
         {
-            
-                    var s = (from p in db.Orders
-                             where p.UserId == id
-                             orderby p.CreateOn descending
-                             select new { p.Name, p.UserId}
-                             
-                             ).Skip(0).Take(1);
-                    foreach (var k in s)
-                    {
-                      
-                        return k.Name;
-                    }
 
-                    return s.ToString();
+            var s = (from p in db.Orders
+                     where p.UserId == id
+                     orderby p.CreateOn descending
+                     select new { p.Name, p.UserId }
+
+                     ).Skip(0).Take(1);
+            foreach (var k in s)
+            {
+
+                return k.Name;
+            }
+
+            return s.ToString();
         }
         public List<AllOrderModels> ListOrder(int id)
         {
@@ -106,23 +106,24 @@ namespace Models.DAO
                         Name = order.Name,
                         UserAddress = order.UserAddress,
                         UserPhoneNumber = order.UserPhoneNumber,
-                        UserName=order.UserName,
+                        UserName = order.UserName,
                     };
             return s.ToList();
 
 
         }
-        public decimal? totalCost(int id) {
-            decimal? total=0;
+        public decimal? totalCost(int id)
+        {
+            decimal? total = 0;
             var s = from p in db.Orders
-                     where p.UserId == id
-                     select new AllOrderModels 
-                     {
-                         Name=p.Name,
-                         ShippingStatus=p.ShippingStatus,
-                         PaymentStatus=p.PaymentStatus,
-                         TotalPrice=p.TotalPrice,
-                     };
+                    where p.UserId == id
+                    select new AllOrderModels
+                    {
+                        Name = p.Name,
+                        ShippingStatus = p.ShippingStatus,
+                        PaymentStatus = p.PaymentStatus,
+                        TotalPrice = p.TotalPrice,
+                    };
             foreach (var item in s)
             {
                 if (item.PaymentStatus == true)
@@ -132,7 +133,7 @@ namespace Models.DAO
             }
             return total;
 
-}
+        }
         public void CreateCustomer(AllCustomersModels customer)
         {
             User user = new User();
@@ -144,6 +145,26 @@ namespace Models.DAO
             db.Users.Add(user);
             db.SaveChanges();
         }
-
+    
+        //    public List<OrderDetailModel> ListProductOnOrder(int id)
+        //    {
+        //        var s = from d in db.OrderDetails
+        //                where d.OrderId == id
+        //                select new OrderDetailModel
+        //                {
+        //                   ProductName=d.ProductName,
+        //                   Number=d.Number,
+        //                   ProductPrice=d.ProductPrice,
+        //                   PriceItem=d.PriceItem,
+        //                   Id=d.Id,
+        //                   ProductCode=d.ProductCode,
+        //                   CreateOn=d.CreateOn,
+        //                   ProductSize=d.ProductSize,
+        //                   ModifiedOn=d.ModifiedOn,
+        //                   OrderId=id
+        //                };
+        //                return s.ToList();
+        //    }
+        //
     }
 }

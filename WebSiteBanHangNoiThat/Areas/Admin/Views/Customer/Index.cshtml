@@ -56,7 +56,8 @@
             </td>
             <td>
                 @*@Html.DisplayFor(modelItem=>item.OrderRecently)*@
-                @Html.ActionLink(item.OrderRecently, "EditOrder", new { id=item.Id})
+                
+                @Html.ActionLink(item.OrderRecently, "ViewOrderDetails", new { id = item.Id })
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TotalCost)

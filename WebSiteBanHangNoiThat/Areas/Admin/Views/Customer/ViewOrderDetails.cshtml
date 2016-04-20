@@ -1,0 +1,97 @@
+﻿@model IEnumerable<Models.ViewModels.OrderDetailModel>
+
+@{
+    ViewBag.Title = "ViewOrderDetails";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_Share.cshtml";
+}
+<table class="table" style="margin-left:20px">
+    <thead>
+        <tr>
+            <th>
+                <h2 class="header__main">
+                    <span class="breadcrumb"><i class="fa fa-credit-card"></i> </span><span class="title">
+                         Chi tiết Hóa Đơn /
+                        @foreach (var ba in Model)
+                        {
+                            @Html.DisplayFor(modelItem => ba.OrderId)
+                            break;
+                        }
+                    </span>
+                </h2>
+            </th>
+            <th>
+
+                <a class="btn btn-danger" href="javascript:void(0)" bind-event-click="showExportOrders()">Xuất Hóa Đơn</a>
+
+            </th>
+
+        </tr>
+    </thead>
+
+</table>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Number)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreateOn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ModifiedOn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PriceItem)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductSize)
+        </th>
+
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Number)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreateOn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ModifiedOn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OrderId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PriceItem)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductSize)
+        </td>
+   
+    </tr>
+}
+
+</table>
