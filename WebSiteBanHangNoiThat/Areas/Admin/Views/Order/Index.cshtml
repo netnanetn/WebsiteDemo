@@ -1,5 +1,5 @@
-﻿@model IEnumerable<Models.ViewModels.AllOrderModels>
-
+﻿@model PagedList.IPagedList<Models.ViewModels.AllOrderModels>
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout_Share.cshtml";
@@ -20,17 +20,25 @@
     </thead>
 
 </table>
-
+<div style="margin-left:45px">
+    @using (Html.BeginForm())
+    {
+        <p>
+            Tìm sản phẩm: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+            <input type="submit" value="Search" />
+        </p>
+    }
+</div>
 <table class="table table-hover" style="margin-left:0px">
     <tr>
         <th>
             <input id="Checkbox1" type="checkbox" />
         </th>
         <th>
-            <h5><b>Đơn hàng</b></h5>
+            <h5><b>@Html.ActionLink("Đơn hàng", "Index", new { sortOrder = ViewBag.NameSortParm })</b></h5>
         </th>
         <th>
-            <h5><b>Ngày tạo</b></h5>
+            <h5><b>@Html.ActionLink("Ngày tạo", "Index", new { sortOrder = ViewBag.DateSortParm })</b></h5>
         </th>
         <th>
             <h5><b>Khách hàng</b></h5>
@@ -79,3 +87,11 @@
     }
 
 </table>
+
+<br />
+<div class="col-md-offset-10 col-md-10">
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+</div>

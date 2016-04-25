@@ -31,7 +31,7 @@ namespace Models.DAO
                     };
             return s.ToList();
         }
-        public List<AllOrderModels> ListAllOrder()
+        public List<AllOrderModels> ListAllOrder(string sortOrder, string currentFilter, string searchString, int? page)
         {
                 var query = from pro in db.Orders
 
@@ -47,7 +47,26 @@ namespace Models.DAO
 
 
                             };
-
+                switch (sortOrder)
+                {
+                    case "name_desc":
+                        query = query.OrderByDescending(s => s.Name);
+                        break;
+                    case "Date":
+                        query = query.OrderBy(s => s.CreateOn);
+                        break;
+                    case "date_desc":
+                        query = query.OrderByDescending(s => s.CreateOn);
+                        break;
+                    default:
+                        query = query.OrderBy(s => s.UserName);
+                        break;
+                }
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    query = query.Where(s => s.Name.Contains(searchString)
+                                           || s.UserName.Contains(searchString));
+                }
                 return query.ToList();
         }
 

@@ -20,6 +20,8 @@ C:\Users\PC\Documents\Visual Studio 2013\Projects\WebSiteBanHangNoiThat\WebSiteB
 C:\Users\PC\Documents\Visual Studio 2013\Projects\WebSiteBanHangNoiThat\WebSiteBanHangNoiThat\bin\Models.dll
 C:\Users\PC\Documents\Visual Studio 2013\Projects\WebSiteBanHangNoiThat\WebSiteBanHangNoiThat\bin\Newtonsoft.Json.dll
 C:\Users\PC\Documents\Visual Studio 2013\Projects\WebSiteBanHangNoiThat\WebSiteBanHangNoiThat\bin\Owin.dll
+C:\Users\PC\Documents\Visual Studio 2013\Projects\WebSiteBanHangNoiThat\WebSiteBanHangNoiThat\bin\PagedList.dll
+C:\Users\PC\Documents\Visual Studio 2013\Projects\WebSiteBanHangNoiThat\WebSiteBanHangNoiThat\bin\PagedList.Mvc.dll
 C:\Users\PC\Documents\Visual Studio 2013\Projects\WebSiteBanHangNoiThat\WebSiteBanHangNoiThat\bin\System.Web.Helpers.dll
 C:\Users\PC\Documents\Visual Studio 2013\Projects\WebSiteBanHangNoiThat\WebSiteBanHangNoiThat\bin\System.Web.Mvc.dll
 C:\Users\PC\Documents\Visual Studio 2013\Projects\WebSiteBanHangNoiThat\WebSiteBanHangNoiThat\bin\System.Web.Optimization.dll
@@ -29,6 +31,8 @@ C:\Users\PC\Documents\Visual Studio 2013\Projects\WebSiteBanHangNoiThat\WebSiteB
 C:\Users\PC\Documents\Visual Studio 2013\Projects\WebSiteBanHangNoiThat\WebSiteBanHangNoiThat\bin\System.Web.WebPages.Razor.dll
 C:\Users\PC\Documents\Visual Studio 2013\Projects\WebSiteBanHangNoiThat\WebSiteBanHangNoiThat\bin\WebGrease.dll
 C:\Users\PC\Documents\Visual Studio 2013\Projects\WebSiteBanHangNoiThat\WebSiteBanHangNoiThat\bin\Models.pdb
+C:\Users\PC\Documents\Visual Studio 2013\Projects\WebSiteBanHangNoiThat\WebSiteBanHangNoiThat\bin\PagedList.xml
+C:\Users\PC\Documents\Visual Studio 2013\Projects\WebSiteBanHangNoiThat\WebSiteBanHangNoiThat\bin\PagedList.Mvc.xml
 C:\Users\PC\Documents\Visual Studio 2013\Projects\WebSiteBanHangNoiThat\WebSiteBanHangNoiThat\bin\System.Web.Helpers.xml
 C:\Users\PC\Documents\Visual Studio 2013\Projects\WebSiteBanHangNoiThat\WebSiteBanHangNoiThat\bin\System.Web.Mvc.xml
 C:\Users\PC\Documents\Visual Studio 2013\Projects\WebSiteBanHangNoiThat\WebSiteBanHangNoiThat\bin\System.Web.Optimization.xml

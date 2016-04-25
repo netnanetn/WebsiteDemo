@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="~/Assets/dist/assets/font-awesome/css/font-awesome.css">
     <link rel="stylesheet" href="~/Assets/dist/assets/plugins/bootstrap-wysihtml5/css/bootstrap-wysihtml5.css">
     @* Select dropdown *@
-    <link rel="stylesheet" href="~/Assets/dist/css/bootstrap.min.css">
+    @*<link rel="stylesheet" href="~/Assets/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/Assets/dist/css/veneto-admin.min.css">
     <link rel="stylesheet" href="~/Assets/demo/css/demo.css">
     <link rel="stylesheet" href="~/Assets/dist/assets/font-awesome/css/font-awesome.css">
@@ -59,7 +59,7 @@
             font: 10px arial, san serif;
             text-align: left;
         }
-    </style>
+    </style>*@
     <!--[if lt IE 9]>
     <script src="dist/assets/libs/html5shiv/html5shiv.min.js"></script>
     <script src="dist/assets/libs/respond/respond.min.js"></script>
@@ -91,19 +91,9 @@
                
             </div>
             <ul class="nav navbar-nav navbar-nav-expanded pull-right margin-md-right">
-                <li class="hidden-xs">
-                    <form class="navbar-form">
-                        <div class="navbar-search">
-                            <input type="text" placeholder="Search &hellip;" class="form-control">
-                            <button class="btn" type="submit"><i class="fa fa-search"></i></button>
-                        </div>
-                    </form>
-                </li>
+           
                 <li class="dropdown">
-                    <a data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">
-                        <i class="glyphicon glyphicon-envelope"></i>
-                        <span class="badge badge-up badge-dark badge-small">3</span>
-                    </a>
+                    
                     <ul class="dropdown-menu dropdown-messages pull-right">
                         <li class="dropdown-title bg-inverse">New Messages</li>
                         <li class="unread">
@@ -151,76 +141,21 @@
                         </li>
                     </ul>
                 </li>
-                <li class="dropdown">
-                    <a data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">
-                        <i class="glyphicon glyphicon-globe"></i>
-                        <span class="badge badge-up badge-danger badge-small">3</span>
-                    </a>
-                    <ul class="dropdown-menu dropdown-notifications pull-right">
-                        <li class="dropdown-title bg-inverse">Notifications (3)</li>
-                        <li>
-                            <a href="javascript:;" class="notification">
-                                <div class="notification-thumb pull-left">
-                                    <i class="fa fa-clock-o fa-2x text-info"></i>
-                                </div>
-                                <div class="notification-body">
-                                    <strong>Call with John</strong><br>
-                                    <small class="text-muted">8 minutes ago</small>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:;" class="notification">
-                                <div class="notification-thumb pull-left">
-                                    <i class="fa fa-life-ring fa-2x text-warning"></i>
-                                </div>
-                                <div class="notification-body">
-                                    <strong>New support ticket</strong><br>
-                                    <small class="text-muted">21 hours ago</small>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:;" class="notification">
-                                <div class="notification-thumb pull-left">
-                                    <i class="fa fa-exclamation fa-2x text-danger"></i>
-                                </div>
-                                <div class="notification-body">
-                                    <strong>Running low on space</strong><br>
-                                    <small class="text-muted">3 days ago</small>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:;" class="notification">
-                                <div class="notification-thumb pull-left">
-                                    <i class="fa fa-user fa-2x text-muted"></i>
-                                </div>
-                                <div class="notification-body">
-                                    New customer registered<br>
-                                    <small class="text-muted">06/18/2014 12:31 am</small>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="dropdown-footer">
-                            <a href="javascript:;"><i class="fa fa-share"></i> See all notifications</a>
-                        </li>
-                    </ul>
-                </li>
+             
                 <li class="dropdown">
                     <a data-toggle="dropdown" class="dropdown-toggle navbar-user" href="javascript:;">
                         <img class="img-circle" src="~/Assets/demo/images/profile.jpg">
-                        <span class="hidden-xs">Marlon Brice</span>
+                        <span class="hidden-xs">Mr.TinhHuyen</span>
                         <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu pull-right-xs">
                         <li class="arrow"></li>
-                        <li><a href="pages-profile.html">Profile</a></li>
-                        <li><a href="javascript:;"><span class="badge badge-danger pull-right">2</span> Inbox</a></li>
-                        <li><a href="javascript:;">Messages</a></li>
-                        <li><a href="javascript:;">Settings</a></li>
+                        <li><a href="http://localhost:64897/Admin/Profile/Profile">Tài khoản của bạn</a></li>
+                        <li><a href="javascript:;">Đổi mật khẩu</a></li>
+                        <li><a href="javascript:;">Điều khoản dịch vụ</a></li>
+                        <li><a href="javascript:;">Chính sách bảo mật</a></li>
                         <li class="divider"></li>
-                        <li><a href="pages-sign-in.html">Log Out</a></li>
+                        <li><a href="http://localhost:64897/Admin/Login/Login">Đăng xuất</a></li>
                     </ul>
                 </li>
             </ul>
@@ -234,7 +169,7 @@
                 <div class="profile-body">
                     <h4>Mr.TinhHuyen</h4>
                     <div class="sidebar-user-links">
-                        <a class="btn btn-link btn-xs" href="pages-profile.html" data-placement="bottom" data-toggle="tooltip" data-original-title="Profile"><i class="fa fa-user"></i></a>
+                        <a class="btn btn-link btn-xs" href="http://localhost:64897/Admin/Profile/Profile" data-placement="bottom" data-toggle="tooltip" data-original-title="Profile"><i class="fa fa-user"></i></a>
                         <a class="btn btn-link btn-xs" href="javascript:;" data-placement="bottom" data-toggle="tooltip" data-original-title="Messages"><i class="fa fa-envelope"></i></a>
                         <a class="btn btn-link btn-xs" href="javascript:;" data-placement="bottom" data-toggle="tooltip" data-original-title="Settings"><i class="fa fa-cog"></i></a>
                         <a class="btn btn-link btn-xs" href="pages-sign-in.html" data-placement="bottom" data-toggle="tooltip" data-original-title="Logout"><i class="fa fa-sign-out"></i></a>
@@ -263,28 +198,28 @@
                         </ul>
                     </li>
                     <li class="nav-dropdown">
-                        <a href="http://localhost:64897/Admin/Order/Index" title="Users">
-                            <i class="fa fa-lg fa-fw fa-user"></i> Đơn hàng
+                        <a href="http://localhost:64897/Admin/Customer/Index" title="Users">
+                            <i class="text-muted fa fa-lg fa-fw fa-users"></i> Khách Hàng
                         </a>
                       
                     </li>
                     <li class="nav-dropdown">
                         <a href="http://localhost:64897/Admin/Product/Index" title="Users">
-                            <i class="fa fa-lg fa-fw fa-envelope-o"></i> Sản Phẩm
-                            <span class="label label-danger pull-right">New</span>
+                            <i class="text-muted fa fa-lg fa-fw fa-tag"></i> Sản Phẩm
+                            @*<span class="label label-danger pull-right">New</span>*@
                         </a>
                        
                     </li>
                     <li class="nav-dropdown">
                         <a href="http://localhost:64897/Admin/AllCategories/Index" title="UI Elements">
-                            <i class="fa fa-lg fa-fw fa-suitcase"></i> Danh Mục Sản Phẩm
+                            <i class="text-muted fa fa-lg fa-fw fa-tags"></i> Danh Mục Sản Phẩm
                         </a>
            
                     </li>
                     <li class="nav-dropdown">
-                        <a href="#" title="Forms">
-                            <i class="fa fa-lg fa-fw fa-edit"></i> Khuyến Mãi
-                            <span class="label label-warning pull-right">Updated</span>
+                        <a href="http://localhost:64897/Admin/Order/Index" title="Forms">
+                            <i class="text-muted fa fa-lg fa-fw fa-credit-card"></i> Đơn Hàng
+                            @*<span class="label label-warning pull-right">Updated</span>*@
                         </a>
                         <ul class="nav-sub">
                             <li>
@@ -585,10 +520,10 @@
                 </ul>
             </nav>
         </aside>
-        <div class="page-content">
+        <div class="page-content clearfix">
             <!--Content-->
             @RenderBody()
-            @* dung *@
+          
         
            
             </div>
@@ -626,17 +561,17 @@
         });
     </script>
  @* Dropdown *@
-    <script src="~/Assets/dist/assets/libs/jquery/jquery.min.js"></script>
+    @*<script src="~/Assets/dist/assets/libs/jquery/jquery.min.js"></script>
     <script src="~/Assets/dist/assets/bs3/js/bootstrap.min.js"></script>
     <script src="~/Assets/dist/assets/plugins/jquery-navgoco/jquery.navgoco.js"></script>
-    <script src="~/Assets/dist/js/main.js"></script>
+    <script src="~/Assets/dist/js/main.js"></script>*@
     <!--[if lt IE 9]>
     <script src="dist/assets/plugins/flot/excanvas.min.js"></script>
     <![endif]-->
-    <script src="~/Assets/dist/assets/plugins/jquery-sparkline/jquery.sparkline.js"></script>
+    @*<script src="~/Assets/dist/assets/plugins/jquery-sparkline/jquery.sparkline.js"></script>
     <script src="~/Assets/demo/js/demo.js"></script>
-    <script src="~/Assets/dist/assets/libs/jquery-ui/minified/jquery-ui.min.js"></script>
-    <script src="~/Assets/dist/assets/plugins/jquery-select2/select2.min.js"></script>
+    <script src="~/Assets/dist/assets/libs/jquery-ui/minified/jquery-ui.min.js"></script>*@
+    @*<script src="~/Assets/dist/assets/plugins/jquery-select2/select2.min.js"></script>
     <script src="~/Assets/dist/assets/plugins/jquery-selectboxit/javascripts/jquery.selectBoxIt.min.js"></script>
     <script src="~/Assets/dist/assets/plugins/jquery-chosen/chosen.jquery.min.js"></script>
     <script src="~/Assets/dist/assets/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
@@ -644,7 +579,7 @@
     <script src="~/Assets/dist/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
     <script src="~/Assets/dist/assets/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
     <script src="~/Assets/dist/assets/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
-    <script src="~/Assets/demo/js/forms-advanced-components.js"></script>
+    <script src="~/Assets/demo/js/forms-advanced-components.js"></script>*@
 
 
 

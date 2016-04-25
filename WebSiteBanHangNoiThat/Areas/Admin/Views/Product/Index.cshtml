@@ -1,5 +1,5 @@
-﻿@model IEnumerable<Models.ViewModels.ProductModels>
-
+﻿@model PagedList.IPagedList<Models.ViewModels.ProductModels>
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout_Share.cshtml";
@@ -19,61 +19,87 @@
     </thead>
 
 </table>
+<div class="container-fluid-md">
+    <div class="panel panel-default has-bulk-actions">
+        <div class="filter-container">
+            <div style="margin-left:45px">
+                <ul class="nav navbar-nav navbar-nav-expanded pull-left margin-md-right">
+                    <li class="hidden-xs">
+                        <form class="navbar-form">
+                            <div class="navbar-search">
+                                @*<input type="text" placeholder="Search &hellip;" class="form-control">*@
+                                @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { placeholder = "Tìm kiếm...", @class = "form-control" })
+                                <button class="btn" type="submit"><i class="fa fa-search"></i></button>
+                            </div>
+                        </form>
+                    </li>
+                </ul>
+            </div>
 
-<table class="table table-hover" style="margin-left:60px">
-    <tr>
-        <th>
-            <input id="Checkbox1" type="checkbox" />
-        </th>
-        <th style="width:50px" ;>
+            <table class="table table-hover" style="margin-left:60px">
+                <tr>
+                    <th>
+                        <input id="Checkbox1" type="checkbox" />
+                    </th>
+                    <th style="width:50px" ;>
 
-        </th>
-        <th>
-            <h4><b>Sản phẩm</b></h4>
-        </th>
-        <th>
-            <h4><b>Kho hàng</b></h4>
-        </th>
-        <th>
-            <h4><b>Loại</b></h4>
-        </th>
-        <th>
-            <h4><b>Nhà cung cấp</b></h4>
-        </th>
-        <th></th>
+                    </th>
+                    <th>
+                        <h4><b>@Html.ActionLink("San Pham", "Index", new { sortOrder = ViewBag.NameSortParm })</b></h4>
+                    </th>
+                    <th>
+                        <h4><b>Kho hàng</b></h4>
+                    </th>
+                    <th>
+                        <h4><b>Loại</b></h4>
+                    </th>
+                    <th>
+                        <h4><b>Nhà cung cấp</b></h4>
+                    </th>
+                    <th></th>
 
-    </tr>
+                </tr>
 
-    @foreach (var item in Model)
+                @foreach (var item in Model)
     {
-        <tr>
-            <td class="select">
-                <input type="checkbox" value="313248" name="ids" bind-event-change="addOrRemoveBulkActionItem(313248,this)" id="bulk-action-313248" class="bulk-action-item">
-            </td>
-            <td>
-                <img class="img-circle" src=@Html.DisplayFor(modelItem => item.Image) height="50px" width="50px">
-            </td>
-            <td>
+    <tr>
+        <td class="select">
+            <input type="checkbox" value="313248" name="ids" bind-event-change="addOrRemoveBulkActionItem(313248,this)" id="bulk-action-313248" class="bulk-action-item">
+        </td>
+        <td>
+            <img class="img-circle" src=@Html.DisplayFor(modelItem => item.Image) width="50px" height="50px">
+        </td>
+        <td>
 
 
-          
-                @Html.ActionLink(item.Name, "Edit", new { id = item.Id })
 
-            </td>
-            <td>
-                @Html.Raw(item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductKind)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductManu)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            </td>
-        </tr>
+            @Html.ActionLink(item.Name, "Edit", new { id = item.Id })
+
+        </td>
+        <td>
+            @Html.Raw(item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductKind)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductManu)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+        </td>
+    </tr>
     }
 
-</table>
+            </table>
+            <br />
+            <div class="col-md-offset-10 col-md-10">
+                @*Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount*@
+
+                @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+            </div>
+</div>
+</div>
+</div>

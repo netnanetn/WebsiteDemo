@@ -1,5 +1,5 @@
-﻿@model IEnumerable<Models.ViewModels.AllCustomersModels>
-
+﻿@model PagedList.IPagedList<Models.ViewModels.AllCustomersModels>
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout_Share.cshtml";
@@ -20,11 +20,26 @@
     </thead>
 
 </table>
-
+<div class="container-fluid-md">
+    <div class="panel panel-default has-bulk-actions">
+        <div class="filter-container">
+<div style="margin-left:45px">
+    <ul class="nav navbar-nav navbar-nav-expanded pull-left margin-md-right">
+        <li class="hidden-xs">
+            <form class="navbar-form">
+                <div class="navbar-search">
+                    @*<input type="text" placeholder="Search &hellip;" class="form-control">*@
+                    @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { placeholder = "Tìm kiếm...", @class = "form-control" })
+                    <button class="btn" type="submit"><i class="fa fa-search"></i></button>
+                </div>
+            </form>
+        </li>
+    </ul>
+</div>
 <table class="table table-hover" style="margin-left:60px">
     <tr>
         <th>
-            <h5><b>Họ tên</b></h5>
+            <h5><b>@Html.ActionLink("Họ tên", "Index", new { sortOrder = ViewBag.NameSortParm })</b></h5>
         </th>
         <th>
             <h5><b>Email</b></h5>
@@ -39,7 +54,7 @@
         <th>
             <h5><b>Tổng chi tiêu</b></h5>
         </th>
-     
+
     </tr>
 
     @foreach (var item in Model)
@@ -56,14 +71,24 @@
             </td>
             <td>
                 @*@Html.DisplayFor(modelItem=>item.OrderRecently)*@
-                
+
                 @Html.ActionLink(item.OrderRecently, "ViewOrderDetails", new { id = item.Id })
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TotalCost)
             </td>
-          
+
         </tr>
     }
 
 </table>
+<br />
+<div class="col-md-offset-10 col-md-10">
+    @*Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount*@
+
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+</div>
+</div>
+</div>
+</div>

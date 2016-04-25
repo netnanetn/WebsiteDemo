@@ -12,25 +12,9 @@ namespace Models.DAO
     public class CustomerDAO
     {
         web_interiorEntities db = new web_interiorEntities();
-        public List<AllCustomersModels> ListAllCustomer()
+        public List<AllCustomersModels> ListAllCustomer(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            //var query = (from pro in db.Users
-            //             from order in pro.Orders
-            //             orderby order.CreateOn ascending
-            //             //join order in db.Orders on pro.Id equals order.UserId
-            //             //orderby or.CreateOn descending
-            //             where 1 == 1
-            //             select new AllCustomersModels()
-            //             {
-            //                 Id = pro.Id,
-            //                 Name = pro.Name,
-            //                 Email = pro.Email,
-            //                 TotalCost = order.TotalPrice,
-            //                 NumberOrder = pro.Orders.Count,
-            //                 OrderRecently = order.Name
-
-            //             });
-
+      
             var c = from pro in db.Users
                     select new AllCustomersModels()
                 {
@@ -42,7 +26,19 @@ namespace Models.DAO
                     // OrderRecently = recentlyOrder(Int32.Parse(pro.Id.ToString()))
 
                 };
-
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    c = c.OrderByDescending(s => s.Name);
+                    break;
+                default:
+                    c = c.OrderBy(s => s.Id);
+                    break;
+            }
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                c = c.Where(s => s.Name.Contains(searchString));
+            }
             List<AllCustomersModels> ListUser = new List<AllCustomersModels>();
             foreach (AllCustomersModels item in c)
             {
@@ -71,7 +67,10 @@ namespace Models.DAO
                 ListUser.Add(savecustomer);
 
             }
-            return ListUser;
+         
+        
+           
+             return ListUser;
         }
 
 

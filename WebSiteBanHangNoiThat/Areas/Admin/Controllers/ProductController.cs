@@ -9,28 +9,45 @@ using System.Web.Mvc;
 using Models.DAO;
 using Models.EF;
 using Models.ViewModels;
+using System.Threading.Tasks;
+using System.Web.UI.WebControls;
+using PagedList;
+
 namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
 {
     public class ProductController : Controller
     {
         ProductDAO pr = new ProductDAO();
         public static string pathimg;
-        public static int saveidprocess;
+        public int saveidprocess;
+        public  List<string> ListImg = new List<string>();
         web_interiorEntities db = new web_interiorEntities();
-        
         // GET: Admin/Product
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            return View(pr.ListAllProduct());
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+            var allproduct = pr.ListAllProduct(sortOrder, currentFilter, searchString, page);
+            return View(allproduct.ToPagedList(pageNumber, pageSize));
+            // return View(pr.ListAllProduct(sortOrder, currentFilter,searchString,page));
         }
-        // list product
-  
-        // GET: Admin/Product/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
-
         // GET: Admin/Product/Create
         public ActionResult Create()
         {
@@ -39,9 +56,9 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
             // dua vao trong product model
             // return View(ProductModel)
             ProductModels productModels = new ProductModels();
-            productModels.ListManufacturers = ListManufacturer();
-            productModels.ListCategories = ListCategories();
-       
+            productModels.ListManufacturers = pr.ListManufacturer();
+            productModels.ListCategories = pr.ListCategories();
+
             return View(productModels);
         }
 
@@ -59,43 +76,7 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
-                // thêm vào product
-                Product createProduct = new Product();
-                createProduct.Id = product.Id;
-                createProduct.Name = product.Name;
-                createProduct.Code = product.Code;
-                createProduct.Description = product.Description;
-                createProduct.Alias = product.Alias;
-                createProduct.Image = pathimg;
-                createProduct.CreateOn = DateTime.Now;
-                createProduct.Price = product.Price;
-                createProduct.SalePrice = product.SalePrice;
-                createProduct.Barcode = product.Barcode;
-                createProduct.Size = product.Size;
-                createProduct.Unit = product.Unit;
-                createProduct.StockStatus = product.StockStatus;
-                createProduct.Available = product.Available;
-                createProduct.Material = product.Material;
-                createProduct.ManufacturerId = product.ManufacturerId;
-                createProduct.CategorieId = product.CategorieId;
-
-                var cate = db.Categories.Find(product.CategorieId);
-                createProduct.Categories.Add(cate);
-                // lay danh sach category theo danh sach cac category_ids duoc chon tu client
-                // gan createProduct.Categories = danh sach lay dc o tren
-                // save vào db
-
-                // them vào Manufacturor
-                //Manufacturer manufacturer = new Manufacturer();
-                //manufacturer.Name = product.ProductManu;
-                //db.Manufacturers.Add(manufacturer);
-                    // lưu bảng categories
-                //Category category = new Category();
-                //category.Name = product.ProductKind;
-                //db.Categories.Add(category);
-               
-                db.Products.Add(createProduct);
-                db.SaveChanges();
+                pr.CreateNewProducts(product, pathimg, ListImg);
                 return RedirectToAction("Index");
             }
 
@@ -137,7 +118,67 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
             }
             return Json(Convert.ToString(_imgname), JsonRequestBehavior.AllowGet);
         }
-      
+        [HttpPost]
+        public ActionResult UploadFiles2()
+        {
+            // Checking no of files injected in Request object  
+            if (Request.Files.Count > 0)
+            {
+                try
+                {
+                    //  Get all files from Request object  
+                    HttpFileCollectionBase files = Request.Files;
+                    for (int i = 0; i < files.Count; i++)
+                    {
+                        //string path = AppDomain.CurrentDomain.BaseDirectory + "Uploads/";  
+                        //string filename = Path.GetFileName(Request.Files[i].FileName);  
+
+                        HttpPostedFileBase file = files[i];
+                        string fname;
+
+                        // Checking for Internet Explorer  
+                        if (Request.Browser.Browser.ToUpper() == "IE" || Request.Browser.Browser.ToUpper() == "INTERNETEXPLORER")
+                        {
+                            string[] testfiles = file.FileName.Split(new char[] { '\\' });
+                            fname = testfiles[testfiles.Length - 1];
+                        }
+                        else
+                        {
+                            fname = file.FileName;
+                            //code bunus
+                            pathimg = fname;
+                            //allfile[i] = pathimg;
+
+                            ListImg.Add(fname);
+                        }
+
+                        // Get the complete folder path and store the file inside it.  
+                        fname = Path.Combine(Server.MapPath("~/Upload/ProductImg/"), fname);
+                        file.SaveAs(fname);
+                        // resizing image
+                        MemoryStream ms = new MemoryStream();
+                        WebImage img = new WebImage(fname);
+
+                        if (img.Width > 200)
+                            img.Resize(200, 200);
+                        img.Save(fname);
+                    }
+                    // Returns message that successfully uploaded  
+                    return Json(ListImg);
+                    //  return Json(Convert.ToString(pathimg), JsonRequestBehavior.AllowGet);
+                }
+                catch (Exception ex)
+                {
+                    return Json("Error occurred. Error details: " + ex.Message);
+                }
+            }
+            else
+            {
+                return Json("No files selected.");
+            }
+        }
+
+
 
         // GET: Admin/Product/Edit/5
         public ActionResult Edit(int id)
@@ -146,39 +187,18 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-        
+
+
             Product product = db.Products.Find(id);
-
-            ProductModels productModels = new ProductModels();
-            productModels.Id = product.Id;
-            productModels.Name = product.Name;
-            productModels.Alias = product.Alias;
-            productModels.Image = product.Image;
-            productModels.Price = product.Price;
-            productModels.SalePrice = product.SalePrice;
-            productModels.Barcode = product.Barcode;
-            productModels.CategorieId = product.CategorieId;
-            productModels.StockStatus = product.StockStatus;
-            productModels.Available = product.Available;
-            productModels.Material = product.Material;
-            productModels.Size = product.Size;
-            productModels.Code = product.Code;
-            productModels.Description = product.Description;
-            productModels.Unit = product.Unit;
-
-            productModels.ListCategories = ListCategories();
-            productModels.ListManufacturers = ListManufacturer();
-           
-           
             if (product == null)
             {
                 return HttpNotFound();
             }
-            return View(productModels);
+            return View(pr.EditProduct(id));
         }
 
         // POST: Admin/Product/Edit/5
-         [ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         [ValidateInput(false)]
         public ActionResult SaveEdit(int id)
         {
@@ -186,11 +206,11 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
             {
                 var pic = System.Web.HttpContext.Current.Request.Files["HelpSectionImages"];
             }
-      
+
             //Kiểm tra hợp lệ dữ liệu phía server
             var product = db.Products.Find(id);
 
-            if (TryUpdateModel(product, "", new string[] { "Name","Image", "Code", "Barcode", "Description", "CategorieId", "ManufacturerId", "Price", "SalePrice", "Alias", "StockStatus", "Available", "Material", "Unit", "Size" }))
+            if (TryUpdateModel(product, "", new string[] { "Name", "Image", "Code", "Barcode", "Description", "CategorieId", "ManufacturerId", "Price", "SalePrice", "Alias", "StockStatus", "Available", "Material", "Unit", "Size" }))
             {
                 if (pathimg != product.Image)
                 {
@@ -199,8 +219,8 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
                 product.ModifiedOn = DateTime.Now;
                 //Cập nhật thông tin 
                 db.Entry(product).State = System.Data.Entity.EntityState.Modified;
-           
-            
+
+
                 db.SaveChanges();
             }
             return RedirectToAction("Index");
@@ -227,51 +247,5 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
                 return View();
             }
         }
-   // lấy ra danh sách các nhà sản xuất
-        //lấy ra danh sách
-        public List<ManufacturerModels> ListManufacturer()
-        {
-            using (web_interiorEntities db = new web_interiorEntities())
-            {
-                var query = from pro in db.Manufacturers
-
-                            select new ManufacturerModels()
-                            {
-                                Id = pro.Id,
-                                Name = pro.Name,
-                                Address = pro.Address,
-                                Logo = pro.Logo,
-                                PhoneNumber = pro.PhoneNumber,
-                                TaxNumber = pro.TaxNumber
-
-                            };
-               
-                return query.ToList();
-            }
-
-        }
-        public List<AllCategoriesModels> ListCategories()
-        {
-            using (web_interiorEntities db = new web_interiorEntities())
-            {
-                var query = from pro in db.Categories
-
-                            select new AllCategoriesModels()
-                            {
-                                Id = pro.Id,
-                                Name = pro.Name,
-                               
-
-                            };
-               
-                return query.ToList();
-            }
-
-        }
-
-   
-
-     
-
     }
 }

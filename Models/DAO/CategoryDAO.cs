@@ -17,10 +17,8 @@ namespace Models.DAO
         //{
         //    db = new web_interiorEntities();
         //}
-        public List<AllCategoriesModels> ListAllCategory()
+        public List<AllCategoriesModels> ListAllCategory(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            using (web_interiorEntities db = new web_interiorEntities())
-            {
                 var query = from pro in db.Categories
 
                             select new AllCategoriesModels()
@@ -30,9 +28,21 @@ namespace Models.DAO
                                 Description = pro.Description,
                                 Image = pro.Image
                             };
-
+                switch (sortOrder)
+                {
+                    case "name_desc":
+                        query = query.OrderByDescending(s => s.Name);
+                        break;
+                    default:
+                        query = query.OrderBy(s => s.Id);
+                        break;
+                }
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    query = query.Where(s => s.Name.Contains(searchString));
+                }
                 return query.ToList();
-            }
+            
 
 
         }

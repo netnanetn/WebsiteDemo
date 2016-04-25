@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Models.DAO;
 using Models.EF;
 using Models.ViewModels;
+using PagedList;
 
 namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
 {
@@ -14,9 +15,26 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
         CustomerDAO c = new CustomerDAO();
         OrderDAO o = new OrderDAO();
         // GET: Admin/Customer
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            return View(c.ListAllCustomer());
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+            var allcustomer = c.ListAllCustomer(sortOrder, currentFilter, searchString, page);
+            return View(allcustomer.ToPagedList(pageNumber, pageSize));
+           // return View(c.ListAllCustomer());
         }
         // GET: Admin/Customer/Details/5
         public ActionResult Details(int id)

@@ -10,11 +10,12 @@ using System.Web.Helpers;
 using Models.DAO;
 using Models.EF;
 using Models.ViewModels;
+using PagedList;
 
 namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
 {
 
-  
+  [Authorize(Roles = "SuperAdmin")]
     public class AllCategoriesController : Controller
     {
         CategoryDAO x = new CategoryDAO();
@@ -24,13 +25,30 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
         web_interiorEntities db = new web_interiorEntities();
         public ActionResult Test()
         {
+          
             return View();
         }
         // GET: Admin/AllCategories
          [Authorize(Roles = "SuperAdmin")]
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            return View(x.ListAllCategory());
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+            var allcategory = x.ListAllCategory(sortOrder, currentFilter, searchString, page);
+            return View(allcategory.ToPagedList(pageNumber, pageSize));
         }
          
      
