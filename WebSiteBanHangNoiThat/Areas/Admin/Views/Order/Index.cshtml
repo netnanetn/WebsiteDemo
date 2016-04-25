@@ -5,7 +5,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout_Share.cshtml";
 }
 
-<table class="table" style="margin-left:20px">
+<table class="table">
     <thead>
         <tr>
             <th>  <h2 class="header__main"><span class="breadcrumb"><i class="fa fa-credit-card"></i> </span><span class="title">Tất cả đơn hàng</span></h2></th>
@@ -89,7 +89,7 @@
 </table>
 
 <br />
-<div class="col-md-offset-10 col-md-10">
+<div class="col-md-offset-10 col-md-2">
     Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
     @Html.PagedListPager(Model, page => Url.Action("Index",

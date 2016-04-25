@@ -58,7 +58,8 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
             ProductModels productModels = new ProductModels();
             productModels.ListManufacturers = pr.ListManufacturer();
             productModels.ListCategories = pr.ListCategories();
-
+            // thêm ListImg
+            productModels.ListAllImg = ListImg;
             return View(productModels);
         }
 

@@ -30,5 +30,6 @@ namespace Models.ViewModels
         public string ProductManu { get; set; }
         public List<ManufacturerModels> ListManufacturers { get; set; }
         public List<AllCategoriesModels> ListCategories { get; set; }
+        public List<string> ListAllImg { get; set; }
     }
 }

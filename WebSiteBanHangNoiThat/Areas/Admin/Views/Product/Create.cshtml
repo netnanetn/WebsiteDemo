@@ -3,7 +3,7 @@
     ViewBag.Title = "Thêm mới sản phẩm";
     Layout = "~/Areas/Admin/Views/Shared/_Layout_Share.cshtml";
 }
-<table class="table" style="margin-left:20px">
+<table class="table">
     <thead>
         <tr>
             <th>  <h2 class="header__main"><span class="breadcrumb"><i class="fa fa-credit-card"></i> </span><span class="title">Sản phẩm/ Thêm mới sản phẩm</span></h2></th>
@@ -122,7 +122,10 @@
                                             var count = 1;
                                             $.each(list, function (index, item) {
                                                 //alert(item);
-                                                $("#imgPreview" + count).attr('src', '/Upload/ProductImg/' + item);
+                                                //$("#imgPreview" + count).attr('src', '/Upload/ProductImg/' + item);
+                                        
+                                                //$('#pup').html('<img height="200" width="250" src="/Upload/ProductImg/' + item + '" />');
+                                                $('#pup').append('<img'+' id="imgpreview'+count+'"'+' height="200" width="250" src="/Upload/ProductImg/' + item + '" />');
                                                 count++;
                                             });
                                         },
@@ -139,11 +142,8 @@
                 </div>
                 <div class="col-md-8 col-lg-9">
                     <div class="panel panel-default panel-light">
-                        <div class="panel-body">
-                            <img id="imgPreview1" height="200" width="200" style="border:none" />
-                            <img id="imgPreview2" height="200" width="200" style="border:none" />
-                            <img id="imgPreview3" height="200" width="200" style="border:none" />
-                            <img id="imgPreview4" height="200" width="200" style="border:none" />
+                        <div class="panel-body" id="pup">
+                      @*hien thi anh*@
                         </div>
                     </div>
                 </div>
@@ -285,7 +285,7 @@
             </div>
             <div class="row">
                 <div class="form-group">
-                    <div class="col-md-offset-10 col-md-10">
+                    <div class="col-md-offset-10 col-md-2">
                         <input type="submit" value="Lưu" class="btn btn-primary" />
                     </div>
                 </div>
