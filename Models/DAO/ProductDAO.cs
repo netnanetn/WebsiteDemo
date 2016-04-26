@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Models.EF;
 using Models.ViewModels;
+
 namespace Models.DAO
 {
   public class ProductDAO
@@ -156,6 +157,17 @@ namespace Models.DAO
               return query.ToList();
           }
 
+      }
+      public void DeleteProduct(int id)
+      {
+          Product pr = db.Products.Find(id);
+          var productcate = db.Categories.Find(pr.Id);
+          //var productOrder = db.OrderDetails.Find(pr.Id);
+          pr.Categories.Remove(productcate);
+          db.Products.Remove(pr);
+       
+          //pr.OrderDetails.Remove(productOrder);
+          db.SaveChanges();
       }
   }
 }

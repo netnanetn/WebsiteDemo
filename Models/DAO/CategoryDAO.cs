@@ -76,9 +76,10 @@ namespace Models.DAO
         }
         public void DeleteCategory(int id) 
         {
-            Category cate = db.Categories.Find(id);
-            db.Categories.Remove(cate);
-            db.SaveChanges();
+         
+                Category cate = db.Categories.Find(id);
+                db.Categories.Remove(cate);
+                db.SaveChanges();
         
         }
         public Category FindCategory(int id)

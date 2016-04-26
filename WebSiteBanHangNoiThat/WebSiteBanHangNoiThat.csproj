@@ -566,6 +566,13 @@
     <Content Include="Content\ckeditor\plugins\forms\dialogs\textarea.js" />
     <Content Include="Content\ckeditor\plugins\forms\dialogs\textfield.js" />
     <Content Include="Content\ckeditor\plugins\forms\images\hiddenfield.gif" />
+    <Content Include="Content\ckeditor\plugins\html5validation\CHANGELOG.txt" />
+    <Content Include="Content\ckeditor\plugins\html5validation\lang\en.js" />
+    <Content Include="Content\ckeditor\plugins\html5validation\lang\es.js" />
+    <Content Include="Content\ckeditor\plugins\html5validation\lang\fr.js" />
+    <Content Include="Content\ckeditor\plugins\html5validation\lang\it.js" />
+    <Content Include="Content\ckeditor\plugins\html5validation\lang\ru.js" />
+    <Content Include="Content\ckeditor\plugins\html5validation\plugin.js" />
     <Content Include="Content\ckeditor\plugins\icons.png" />
     <Content Include="Content\ckeditor\plugins\icons_hidpi.png" />
     <Content Include="Content\ckeditor\plugins\iframe\dialogs\iframe.js" />
@@ -843,6 +850,9 @@
     <Content Include="Areas\Admin\Views\Customer\EditName.cshtml" />
     <Content Include="Areas\Admin\Views\Customer\ViewOrderDetails.cshtml" />
     <Content Include="Areas\Admin\Views\AllCategories\Test.cshtml" />
+    <Content Include="Content\ckeditor\plugins\html5validation\LICENSE" />
+    <Content Include="Content\ckeditor\plugins\html5validation\README.md" />
+    <Content Include="Areas\Admin\Views\Product\Delete.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

@@ -68,7 +68,6 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
         // POST: Admin/AllCategories/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [ValidateInput(false)]
         public ActionResult Create([Bind(Include = "Id,Name,Code,Image,Description,Alias")] Category category)
         {
             if (System.Web.HttpContext.Current.Request.Files.AllKeys.Any())

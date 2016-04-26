@@ -11,6 +11,7 @@ namespace Models.EF
 {
     using System;
     using System.Collections.Generic;
+    using System.Web.Mvc;
     
     public partial class Category
     {
@@ -24,6 +25,7 @@ namespace Models.EF
         public string Name { get; set; }
         public string Code { get; set; }
         public string Image { get; set; }
+           [AllowHtml]
         public string Description { get; set; }
         public string Alias { get; set; }
         public Nullable<System.DateTime> CreateOn { get; set; }

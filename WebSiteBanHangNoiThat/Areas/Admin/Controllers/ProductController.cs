@@ -66,22 +66,39 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
         // POST: Admin/Product/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [ValidateInput(false)]
         public ActionResult Create([Bind(Include = "Id,Name,Code,Image,Description,Alias,ProductKind,ProductManu,Price,SalePrice,Barcode,Size,Unit,StockStatus,Material,Available,ManufacturerId,ListCategories,CategorieId")] ProductModels product)
         {
             if (System.Web.HttpContext.Current.Request.Files.AllKeys.Any())
             {
                 var pic = System.Web.HttpContext.Current.Request.Files["HelpSectionImages"];
             }
-
-
             if (ModelState.IsValid)
             {
                 pr.CreateNewProducts(product, pathimg, ListImg);
                 return RedirectToAction("Index");
             }
 
-            return View(product);
+            ProductModels productModels = new ProductModels();
+            productModels.Id = product.Id;
+            productModels.Name = product.Name;
+            productModels.Alias = product.Alias;
+            productModels.Image = product.Image;
+            productModels.Price = product.Price;
+            productModels.SalePrice = product.SalePrice;
+            productModels.Barcode = product.Barcode;
+            productModels.CategorieId = product.CategorieId;
+            productModels.StockStatus = product.StockStatus;
+            productModels.Available = product.Available;
+            productModels.Material = product.Material;
+            productModels.Size = product.Size;
+            productModels.Code = product.Code;
+            productModels.Description = product.Description;
+            productModels.Unit = product.Unit;
+
+            productModels.ListCategories = pr.ListCategories();
+            productModels.ListManufacturers = pr.ListManufacturer();
+            
+            return View(productModels);
         }
         [AcceptVerbs(HttpVerbs.Post)]
         public JsonResult UploadFile()
@@ -230,7 +247,16 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
         // GET: Admin/Product/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Product product = db.Products.Find(id);
+            if (product == null)
+            {
+                return HttpNotFound();
+            }
+            return View(product);
         }
 
         // POST: Admin/Product/Delete/5
@@ -240,7 +266,8 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
             try
             {
                 // TODO: Add delete logic here
-
+                pr.DeleteProduct(id);
+            
                 return RedirectToAction("Index");
             }
             catch
