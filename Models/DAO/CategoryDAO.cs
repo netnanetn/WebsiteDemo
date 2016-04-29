@@ -87,5 +87,26 @@ namespace Models.DAO
             Category category = db.Categories.Find(id);
             return category;
         }
+
+        public void DeleteCategoryDao(int id)
+      {
+          Category cate = db.Categories.Find(id);
+          var pro = db.Products.Where(x=>x.CategorieId==id);
+          foreach (var s in pro)
+          {
+
+              var prImg = db.ProductImages.Where(x => x.ProductId == s.Id);
+              foreach (var c in prImg)
+              {
+                  db.ProductImages.Remove(c);
+              }
+
+              
+              cate.Products.Remove(s);
+              db.Products.Remove(s);
+          }
+          db.Categories.Remove(cate);
+          db.SaveChanges();
+      }
     }
 }

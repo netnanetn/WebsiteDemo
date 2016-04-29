@@ -1,0 +1,91 @@
+﻿@model Models.EF.Product
+<div class="modal fade col-md-offset-4 col-md-4">
+    <form role="form">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="panel-title">Xóa sản phẩm</h4>
+            </div>
+            <div class="panel-body">
+                <div class="row" style="margin-left:50px;">
+                    <h4><b>Bạn có muốn xóa sản phẩm này không?</b></h4>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <dl class="dl-horizontal">
+                                <dt>
+                                    <b>Tên sản phẩm</b>
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.Name)
+                                </dd>
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.Price)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.Price)
+                                </dd>
+
+
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.StockStatus)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.StockStatus)
+                                </dd>
+
+
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.CreateOn)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.CreateOn)
+                                </dd>
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.Material)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.Material)
+                                </dd>
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.Size)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.Size)
+                                </dd>
+
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.Description)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.Description)
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="panel-footer">
+                <div class="form-group text-right">
+                    <input type="button" title="Delete" value="Xóa" onclick="location.href='@Url.Action("DeleteProductPa", "Product", new { id = Model.Id })'" />
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

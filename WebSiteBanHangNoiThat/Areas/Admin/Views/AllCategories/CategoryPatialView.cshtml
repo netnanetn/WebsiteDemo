@@ -1,0 +1,31 @@
+﻿@model Models.ViewModels.AllCategoriesModels
+
+<div class="modal fade col-md-offset-4 col-md-4">
+    <form role="form">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="panel-title">Xóa danh mục sản phẩm</h4>
+            </div>
+            <div class="panel-body">
+                <div class="row" style="margin-left:50px;">
+                    <h4><b>Bạn có muốn xóa danh mục này không?</b></h4>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            Danh mục này hiện đang có @Html.DisplayFor(model => model.Count) sản phẩm, nếu xóa bạn sẽ xóa tất cả sản phẩm trong danh mục đó.
+                        </div>
+                    </div>
+                   
+                </div>
+               
+            </div>
+            <div class="panel-footer">
+                <div class="form-group text-right">
+                    <input type="button" title="Delete" value="Xóa" onclick="location.href='@Url.Action("DeleteCategory", "AllCategories", new { id = Model.Id })'" />
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

@@ -30,6 +30,7 @@ C:\Users\PC\Documents\Visual Studio 2013\Projects\WebSiteBanHangNoiThat\WebSiteB
 C:\Users\PC\Documents\Visual Studio 2013\Projects\WebSiteBanHangNoiThat\WebSiteBanHangNoiThat\bin\System.Web.WebPages.dll
 C:\Users\PC\Documents\Visual Studio 2013\Projects\WebSiteBanHangNoiThat\WebSiteBanHangNoiThat\bin\System.Web.WebPages.Razor.dll
 C:\Users\PC\Documents\Visual Studio 2013\Projects\WebSiteBanHangNoiThat\WebSiteBanHangNoiThat\bin\WebGrease.dll
+C:\Users\PC\Documents\Visual Studio 2013\Projects\WebSiteBanHangNoiThat\WebSiteBanHangNoiThat\bin\Mono.HttpUtility.dll
 C:\Users\PC\Documents\Visual Studio 2013\Projects\WebSiteBanHangNoiThat\WebSiteBanHangNoiThat\bin\Models.pdb
 C:\Users\PC\Documents\Visual Studio 2013\Projects\WebSiteBanHangNoiThat\WebSiteBanHangNoiThat\bin\PagedList.xml
 C:\Users\PC\Documents\Visual Studio 2013\Projects\WebSiteBanHangNoiThat\WebSiteBanHangNoiThat\bin\PagedList.Mvc.xml

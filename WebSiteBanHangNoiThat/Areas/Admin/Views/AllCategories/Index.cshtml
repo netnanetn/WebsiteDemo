@@ -61,7 +61,8 @@
                             @Html.Raw(item.Description)
                         </td>
                         <td>
-                            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                            @*@Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
+                            @Html.ActionLink("Delete", "CategoryPatialView", "AllCategories", new { id = item.Id }, new { @class = "btn del" })
                         </td>
                     </tr>
                 }
@@ -74,3 +75,20 @@
         </div>
     </div>
 </div>
+<div id="delCate"></div>
+<script type="text/javascript">
+    $('a.del').on('click', function () {
+        $.ajax({
+            url: this.href,
+            type: 'GET',
+            cache: false,
+            success: function (result) {
+                $('#delCate').html(result).find('.modal').modal({
+                    show: true
+                });
+            }
+        });
+
+        return false;
+    });
+</script>

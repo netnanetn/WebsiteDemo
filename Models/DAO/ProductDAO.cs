@@ -5,12 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using Models.EF;
 using Models.ViewModels;
+using System.Text.RegularExpressions;
+using Mono.Web;
 
 namespace Models.DAO
 {
   public class ProductDAO
     {
       web_interiorEntities db = new web_interiorEntities();
+      ConvertHtmlToPlantext converHtml = new ConvertHtmlToPlantext();
       public List<ProductModels> ListAllProduct(string sortOrder,string currentFilter,string searchString,int? page)
       {
           
@@ -29,7 +32,10 @@ namespace Models.DAO
                               ProductManu = manu.Name
 
                           };
-       
+              foreach (var item in query)
+              {
+                  item.Image = GetImgProduct(item.Id);
+              }
               switch (sortOrder)
               {
                   case "name_desc":
@@ -55,13 +61,28 @@ namespace Models.DAO
           
 
       }
+      public string GetImgProduct(int id){
+          var img = from productImg in db.ProductImages
+                    where productImg.ProductId == id
+                    select new
+                    {
+                        img = productImg.Img,
+                    };
+          foreach (var item in img)
+          {
+              return item.ToString();
+          }
+
+          return "/";
+      }
       public void CreateNewProducts(ProductModels product,string pathimg,List<String> ListImg)
       {
           Product createProduct = new Product();
           createProduct.Id = product.Id;
           createProduct.Name = product.Name;
           createProduct.Code = product.Code;
-          createProduct.Description = product.Description;
+          createProduct.Description = converHtml.HtmlToPlainText(HttpUtility.HtmlDecode(product.Description));
+          //createProduct.Description = product.Description;
           createProduct.Alias = product.Alias;
           createProduct.Image = "/Upload/ProductImg/" + pathimg;
           createProduct.CreateOn = DateTime.Now;
@@ -94,6 +115,29 @@ namespace Models.DAO
 
 
       }
+      public ProductModels InvalidProduct(ProductModels product)
+      {
+          ProductModels productModels = new ProductModels();
+          productModels.Id = product.Id;
+          productModels.Name = product.Name;
+          productModels.Alias = product.Alias;
+          productModels.Image = product.Image;
+          productModels.Price = product.Price;
+          productModels.SalePrice = product.SalePrice;
+          productModels.Barcode = product.Barcode;
+          productModels.CategorieId = product.CategorieId;
+          productModels.StockStatus = product.StockStatus;
+          productModels.Available = product.Available;
+          productModels.Material = product.Material;
+          productModels.Size = product.Size;
+          productModels.Code = product.Code;
+          productModels.Description = converHtml.HtmlToPlainText(HttpUtility.HtmlDecode(product.Description));
+          productModels.Unit = product.Unit;
+
+          productModels.ListCategories = ListCategories();
+          productModels.ListManufacturers = ListManufacturer();
+          return productModels;
+      }
       public ProductModels EditProduct(int id)
       {
           Product product = db.Products.Find(id);
@@ -112,11 +156,15 @@ namespace Models.DAO
           productModels.Material = product.Material;
           productModels.Size = product.Size;
           productModels.Code = product.Code;
-          productModels.Description = product.Description;
+          productModels.Description = converHtml.HtmlToPlainText(HttpUtility.HtmlDecode(product.Description));
+          //productModels.Description = Regex.Replace(product.Description, @"<[^>]+>| ", "").Trim();
           productModels.Unit = product.Unit;
 
           productModels.ListCategories = ListCategories();
           productModels.ListManufacturers = ListManufacturer();
+          //lấy ra danh sách images
+          var listImg = db.ProductImages.Where(x => x.ProductId == id).Select(x=>x.Img);
+          productModels.ListAllImg = listImg.ToList();
           return productModels;
       }
       public List<ManufacturerModels> ListManufacturer()
@@ -162,12 +210,15 @@ namespace Models.DAO
       {
           Product pr = db.Products.Find(id);
           var productcate = db.Categories.Find(pr.Id);
-          //var productOrder = db.OrderDetails.Find(pr.Id);
+          var prImg = db.ProductImages.Where(x => x.ProductId == id);
           pr.Categories.Remove(productcate);
           db.Products.Remove(pr);
-       
-          //pr.OrderDetails.Remove(productOrder);
+          foreach (var s in prImg)
+          {
+              db.ProductImages.Remove(s);
+          }
           db.SaveChanges();
       }
+      
   }
 }

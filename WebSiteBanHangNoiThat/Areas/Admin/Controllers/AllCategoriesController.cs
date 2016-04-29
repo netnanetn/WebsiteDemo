@@ -210,7 +210,35 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
             x.DeleteCategory(id);
             return RedirectToAction("Index");
         }
-       
+      [HttpGet]
+        public ActionResult CategoryPatialView(int id)
+        {
+  
+            Category cate = db.Categories.Find(id);
+            AllCategoriesModels mod = new AllCategoriesModels();
+            var pr = db.Products.Where(x => x.CategorieId == id);
+            int count = 0;
+            foreach (var item in pr)
+            {
+                count++;
+            }
+            mod.Count = count;
+            mod.Id = cate.Id;
+            mod.Name = cate.Name;
+            return PartialView(mod);
+        }
+      public ActionResult DeleteCategory(int id)
+      {
+          try
+          {
+              x.DeleteCategoryDao(id);
+              return RedirectToAction("Index");
+          }
+          catch
+          {
+              return View();
+          }
+      }
      
     }
     }

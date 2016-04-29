@@ -18,9 +18,10 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
     public class ProductController : Controller
     {
         ProductDAO pr = new ProductDAO();
+        ConvertHtmlToPlantext convertHtml = new ConvertHtmlToPlantext();
         public static string pathimg;
         public int saveidprocess;
-        public  List<string> ListImg = new List<string>();
+        public static List<string> ListImg = new List<string>();
         web_interiorEntities db = new web_interiorEntities();
         // GET: Admin/Product
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
@@ -75,30 +76,12 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 pr.CreateNewProducts(product, pathimg, ListImg);
+           
                 return RedirectToAction("Index");
             }
 
-            ProductModels productModels = new ProductModels();
-            productModels.Id = product.Id;
-            productModels.Name = product.Name;
-            productModels.Alias = product.Alias;
-            productModels.Image = product.Image;
-            productModels.Price = product.Price;
-            productModels.SalePrice = product.SalePrice;
-            productModels.Barcode = product.Barcode;
-            productModels.CategorieId = product.CategorieId;
-            productModels.StockStatus = product.StockStatus;
-            productModels.Available = product.Available;
-            productModels.Material = product.Material;
-            productModels.Size = product.Size;
-            productModels.Code = product.Code;
-            productModels.Description = product.Description;
-            productModels.Unit = product.Unit;
 
-            productModels.ListCategories = pr.ListCategories();
-            productModels.ListManufacturers = pr.ListManufacturer();
-            
-            return View(productModels);
+            return View(pr.InvalidProduct(product));
         }
         [AcceptVerbs(HttpVerbs.Post)]
         public JsonResult UploadFile()
@@ -139,6 +122,8 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult UploadFiles2()
         {
+            ListImg = new List<string>();
+            pathimg = "";
             // Checking no of files injected in Request object  
             if (Request.Files.Count > 0)
             {
@@ -164,7 +149,7 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
                         {
                             fname = file.FileName;
                             //code bunus
-                            pathimg = fname;
+                            pathimg = fname.ToString();
                             //allfile[i] = pathimg;
 
                             ListImg.Add(fname);
@@ -183,6 +168,7 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
                     }
                     // Returns message that successfully uploaded  
                     return Json(ListImg);
+                 
                     //  return Json(Convert.ToString(pathimg), JsonRequestBehavior.AllowGet);
                 }
                 catch (Exception ex)
@@ -217,7 +203,7 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
 
         // POST: Admin/Product/Edit/5
         [ValidateAntiForgeryToken]
-        [ValidateInput(false)]
+        [HttpPost]
         public ActionResult SaveEdit(int id)
         {
             if (System.Web.HttpContext.Current.Request.Files.AllKeys.Any())
@@ -230,11 +216,17 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
 
             if (TryUpdateModel(product, "", new string[] { "Name", "Image", "Code", "Barcode", "Description", "CategorieId", "ManufacturerId", "Price", "SalePrice", "Alias", "StockStatus", "Available", "Material", "Unit", "Size" }))
             {
-                if (pathimg != product.Image)
+             
+                for (int i = 0; i < ListImg.Count; i++)
                 {
-                    product.Image = pathimg;
+                    ProductImage proImg = new ProductImage();
+                    proImg.ProductId = product.Id;
+                    proImg.Img = "/Upload/ProductImg/" + ListImg[i];
+                    db.ProductImages.Add(proImg);
+                    db.SaveChanges();
                 }
-                product.ModifiedOn = DateTime.Now;
+                    product.ModifiedOn = DateTime.Now;
+                product.Description = convertHtml.HtmlToPlainText(HttpUtility.HtmlDecode(product.Description));
                 //Cập nhật thông tin 
                 db.Entry(product).State = System.Data.Entity.EntityState.Modified;
 
@@ -243,8 +235,31 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
             }
             return RedirectToAction("Index");
         }
+        [HttpPost]
+        public ActionResult GetInforDel(int id)
+      {
+          var product = db.Products.Find(id);
+        return Json(product, JsonRequestBehavior.AllowGet);
+      }
+        [HttpPost]
+        public ActionResult Delete2(int id)
+        {
+            var c = db.Products.Find(id);
+            if (c == null)
+            {
+                return HttpNotFound();
+            }
+            return PartialView(c);
+        }
+        [HttpGet]
+        public ActionResult EditPartialView(int id)
+        {
+            Product product = db.Products.Find(id);
+      
+            return PartialView(product);
 
-        // GET: Admin/Product/Delete/5
+        }
+         //GET: Admin/Product/Delete/5
         public ActionResult Delete(int id)
         {
             if (id == null)
@@ -259,15 +274,13 @@ namespace WebSiteBanHangNoiThat.Areas.Admin.Controllers
             return View(product);
         }
 
-        // POST: Admin/Product/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        //// POST: Admin/Product/Delete/5
+     
+        public ActionResult DeleteProductPa(int id)
         {
             try
             {
-                // TODO: Add delete logic here
                 pr.DeleteProduct(id);
-            
                 return RedirectToAction("Index");
             }
             catch

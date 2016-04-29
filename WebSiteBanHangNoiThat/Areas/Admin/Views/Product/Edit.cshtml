@@ -16,13 +16,6 @@
                     </span>
                 </h2>
             </th>
-            @*<th>
-
-                    <a class="btn btn-default" href="javascript:void(0)" bind-event-click="showExportOrders()">Xuất danh sách danh mục</a>
-                    <a class="btn btn-primary" href="/Admin/AllCategories/create">Thêm mới</a>
-
-                </th>*@
-
         </tr>
     </thead>
 
@@ -34,159 +27,197 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.Id)
-   
+
     <div class="container-fluid-md">
-        <div class="row">
-
-            <div class="col-md-4 col-lg-3">
-
-
-                @*<input type="file" id="uploadEditorImage" />*@
-                <h3><span><b>Nội dung sản phẩm</b></span></h3>
-                <span><i>Chọn ảnh cho sản phẩm</i></span>
-                <input type="file" id="UploadImg" /> <br /><br />
-                Tên mới: <input type="text" id="txtImg" size="50" style="width:140px" /> <br /><br />
-                @*<img id="imgPreview" height="200" width="200" style="border:none"/>*@
-                <img id="imgPreview" class="img-circle" src=@Html.DisplayFor(model => model.Image) height="200px" width="200px">
-                <script>
-                        $("#UploadImg").change(function () {
-                            var data = new FormData();
-                            var files = $("#UploadImg").get(0).files;
-                            if (files.length > 0) {
-                                data.append("MyImages", files[0]);
-                            }
-
-                            $.ajax({
-                                url: "/Product/UploadFile",
-                                type: "POST",
-                                processData: false,
-                                contentType: false,
-                                data: data,
-                                success: function (response) {
-                                    //code after success
-                                    $("#txtImg").val(response);
-                                    $("#imgPreview").attr('src', '/Upload/' + response);
-                                },
-                                error: function (er) {
-                                    alert(er);
-                                }
-
-                            });
-                        });
-                </script>
-
-
-            </div>
-            <div class="col-md-8 col-lg-9">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">Sửa sản phẩm</h4>
-
-
-                        <div class="panel-options">
-                            <a href="#" data-rel="collapse"><i class="fa fa-fw fa-minus"></i></a>
-                            <a href="#" data-rel="reload"><i class="fa fa-fw fa-refresh"></i></a>
-                            <a href="#" data-rel="close"><i class="fa fa-fw fa-times"></i></a>
-                        </div>
-                    </div>
-                    <div class="panel-body">
-                        <form role="form">
+        <form role="form" id="form_createProduct">
+            <div class="row">
+                <div class="col-md-4 col-lg-3">
+                    @*<input type="file" id="uploadEditorImage" />*@
+                    <h4><span><b>Thông tin sản phẩm</b></span></h4>
+                    <p class="text-muted">Cung cấp thông tin về tên, mô tả loại sản phẩm và nhà sản xuất để phân loại sản phẩm này.</p>
+                </div>
+                <div class="col-md-8 col-lg-9">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            @* Name product *@
                             <div class="form-group">
-
-                                <span class="help">Tên Sản Phẩm</span>
-
+                                <span class="help">Tên sản phẩm</span>
                                 <div class="controls">
                                     @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
                                     @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                                 </div>
                             </div>
-                            <div class="form-group">
-
-                                <span class="help">Mã Sản Phẩm</span>
-
-                                <div class="controls">
-                                    @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-
-                            @* Barcode product *@
-                            <div class="form-group">
-
-                                <span class="help">Barcode</span>
-
-                                <div class="controls">
-                                    @Html.EditorFor(model => model.Barcode, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.Barcode, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
                             @* descriptions *@
                             <div class="form-group">
                                 <span class="help">Mô Tả</span>
-
                                 <div class="controls">
-          
                                     <div>
                                         @Html.TextAreaFor(model => model.Description, new { @id = "NoiDung" })
-
                                         <script src="~/Content/ckeditor/ckeditor.js"></script>
-                                      
                                         <script>
                                             CKEDITOR.replace('NoiDung');
                                         </script>
                                     </div>
                                 </div>
                             </div>
-                            @* kind product *@
-                            <div class="form-group">
 
-                                <span class="help">Loại sản phẩm</span>
-
-                                <div class="controls">
-                                  
-                                    @Html.DropDownListFor(model => model.CategorieId,
-                                new SelectList(Model.ListCategories, "Id", "Name"))
-
+                            <div class="row">
+                                @* kind product *@
+                                <div class="col-sm-6" style="z-index:4;">
+                                    <label class="control-label strong">
+                                        <b>Loại</b>
+                                        <span class="note">
+                                            ví dụ: Xe đạp, Áo sơ mi ...
+                                        </span>
+                                    </label>
+                                    <span class="help">Loại sản phẩm</span>
+                                    <div class="controls">
+                                        @Html.DropDownListFor(model => model.CategorieId,
+     new SelectList(Model.ListCategories, "Id", "Name"), new { @class = "form-control next-input next-field--connected input-product_type" })
+                                    </div>
+                                </div>
+                                @* Manufacturers product *@
+                                <div class="col-sm-6" style="z-index:4;">
+                                    <label class="control-label strong">
+                                        <b>Nhà cung cấp</b>
+                                        <span class="note">
+                                            ví dụ: Sony, Apple ...
+                                        </span>
+                                    </label>
+                                    <span class="help">Chọn nhà sản xuất</span>
+                                    <div class="controls">
+                                        @*@Html.EditorFor(model => model.ProductManu, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.ProductManu, "", new { @class = "text-danger" })*@
+                                        @Html.DropDownListFor(model => model.ManufacturerId,
+     new SelectList(Model.ListManufacturers, "Id", "Name"), new { @class = "form-control next-input next-field--connected input-product_type" })
+                                    </div>
                                 </div>
                             </div>
-                            @* Manufacturers product *@
-                            <div class="form-group">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-lg-3 padding-xl-bottom colection">
+                    <h4><b>Thêm ảnh cho sản phẩm</b></h4>
+                    <p class="text-muted">
+                        Đăng ảnh cho sản phẩm
+                        Lưu ý: Size mỗi file ảnh không được vượt quá 1 MB
+                    </p>
+                    <input type="file" id="FileUpload1" multiple value="Chọn ảnh" />
+                    <input type="button" id="btnUpload" value="Đăng ảnh" multiple />
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+                    <script>
+                        $(document).ready(function () {
+                            $('#btnUpload').click(function () {
+                                // Checking whether FormData is available in browser
+                                if (window.FormData !== undefined) {
+                                    var fileUpload = $("#FileUpload1").get(0);
+                                    var files = fileUpload.files;
+                                    // Create FormData object
+                                    var fileData = new FormData();
+                                    // Looping over all files and add it to FormData object
+                                    for (var i = 0; i < files.length; i++) {
+                                        fileData.append(files[i].name, files[i]);
+                                    }
+                                    // Adding one more key to FormData object
+                                    fileData.append('username', 'Manas');
+                                    $.ajax({
+                                        url: '/Product/UploadFiles2',
+                                        type: "POST",
+                                        contentType: false, // Not to set any content header
+                                        processData: false, // Not to process data
+                                        data: fileData,
+                                        success: function (result) {
+                                            var list = result;
+                                            var count = 1;
+                                            $.each(list, function (index, item) {
+                                                //alert(item);
+                                                //$("#imgPreview" + count).attr('src', '/Upload/ProductImg/' + item);
 
-                                <span class="help">Chọn nhà sản xuất</span>
+                                                //$('#pup').html('<img height="200" width="250" src="/Upload/ProductImg/' + item + '" />');
+                                                $('#pup').append('<img' + ' id="imgpreview' + count + '"' + ' height="200" width="250" src="/Upload/ProductImg/' + item + '" />');
+                                                count++;
+                                            });
+                                        },
+                                        error: function (err) {
+                                            alert(err.statusText);
+                                        }
+                                    });
+                                } else {
+                                    alert("FormData is not supported.");
+                                }
+                            });
+                        });
+                    </script>
+                </div>
+                <div class="col-md-8 col-lg-9">
+                    <div class="panel panel-default panel-light">
+                        <div class="panel-body" id="pup">
+                            @foreach(var item in Model.ListAllImg){
+                            <img src="@item" height="200px" width="200px"/>
+                            }
+                            @*hien thi anh*@
+                        </div>
+                    </div>
+                </div>
 
-                                <div class="controls">
-                                    @Html.DropDownListFor(model => model.ManufacturerId,
-                                new SelectList(Model.ListManufacturers, "Id", "Name"))
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 col-lg-3 padding-xl-bottom colection">
+                    <h4><b>Quản lý kho hàng</b></h4>
+                    <p class="text-muted">Bạn có thể cấu hình nhiều phiên bản và quản lý kho cho từng loại của sản phẩm này</p>
+                </div>
+
+                <div class="col-md-8 col-lg-9">
+
+                    <div class="panel panel-default panel-light">
+                        <div class="panel-body">
+                            <div class="row">
+                                @* Price product *@
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+
+                                        <span class="help">Giá sản phẩm</span>
+
+                                        <div class="controls">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">₫</span>
+
+                                                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            @* Price product *@
-                            <div class="form-group">
+                                @* saleprice product *@
+                                <div class="col-sm-6">
+                                    <div class="form-group">
 
-                                <span class="help">Giá sản phẩm</span>
+                                        <span class="help">Giá so sánh</span>
 
-                                <div class="controls">
-                                    @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                            @* saleprice product *@
-                            <div class="form-group">
-
-                                <span class="help">Giá so sánh</span>
-
-                                <div class="controls">
-                                    @Html.EditorFor(model => model.SalePrice, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.SalePrice, "", new { @class = "text-danger" })
+                                        <div class="controls">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">₫</span>
+                                                @Html.EditorFor(model => model.SalePrice, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.SalePrice, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             @* alias product *@
                             <div class="form-group">
 
-                                <span class="help">Alias</span>
+                                <span class="help">Đường dẫn/ Alias</span>
 
                                 <div class="controls">
-                                    @Html.EditorFor(model => model.Alias, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.Alias, "", new { @class = "text-danger" })
+                                    <div class="input-group">
+                                        <span class="input-group-addon">http://only-one1.bizwebvietnam.net/</span>
+                                        @Html.EditorFor(model => model.Alias, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Alias, "", new { @class = "text-danger" })
+                                    </div>
                                 </div>
                             </div>
                             @* Name product *@
@@ -201,9 +232,7 @@
                             </div>
                             @* avaiable product *@
                             <div class="form-group">
-
                                 <span class="help">Sản phẩm kinh doanh</span>
-
                                 <div class="controls">
                                     @Html.EditorFor(model => model.Available, new { htmlAttributes = new { @class = "form-control" } })
                                     @Html.ValidationMessageFor(model => model.Available, "", new { @class = "text-danger" })
@@ -239,17 +268,45 @@
                                     @Html.ValidationMessageFor(model => model.Size, "", new { @class = "text-danger" })
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <div class="col-md-offset-10 col-md-2">
-                                    <input type="submit" value="Lưu" class="btn btn-primary" />
+                            @* code productt *@
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <span class="help">Mã sản phẩm</span>
+                                        <div class="controls">
+                                            @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                @* Barcode product *@
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+
+                                        <span class="help">Barcode</span>
+
+                                        <div class="controls">
+                                            @Html.EditorFor(model => model.Barcode, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Barcode, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </form>
+                        </div>
+                    </div>
 
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-md-offset-10 col-md-2">
+                        <input type="submit" value="Lưu" class="btn btn-primary" />
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
+
+
     </div>
 }
 
